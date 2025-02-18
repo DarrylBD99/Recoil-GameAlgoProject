@@ -28,11 +28,11 @@ public class Entity : MonoBehaviour
     // Damages Entity
     public void damage(float amount) {
         health -= amount;
-        Debug.Log(name + ": Hit (" + health + "/" + maxHealth + ")");
+        //Debug.Log(name + ": Hit (" + health + "/" + maxHealth + ")");
         OnDamaged?.Invoke();
 
         if (health <= 0) {
-            Debug.Log(name + ": Dead");
+            //Debug.Log(name + ": Dead");
             Destroy(gameObject);
         }
     }
