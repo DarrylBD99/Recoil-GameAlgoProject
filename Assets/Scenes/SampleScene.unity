@@ -670,6 +670,7 @@ GameObject:
   - component: {fileID: 765393711}
   - component: {fileID: 765393710}
   - component: {fileID: 765393709}
+  - component: {fileID: 765393713}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -690,7 +691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attack: 0
-  speed: 0
+  speed: 6
   attackSpeed: 0
   maxHealth: 10
 --- !u!212 &765393710
@@ -763,6 +764,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &765393713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765393708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36528a43a77c39849a309557a555a0e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &842506354
 GameObject:
   m_ObjectHideFlags: 0
