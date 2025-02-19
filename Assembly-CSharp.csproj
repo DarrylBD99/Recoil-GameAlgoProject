@@ -63,7 +63,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Entity.cs" />
-    <Compile Include="Assets\DamageFlash.cs" />
+    <Compile Include="Assets\Scripts\EntityCanvas.cs" />
+    <Compile Include="Assets\Scripts\DamageFlash.cs" />
+    <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\DamageButton.cs" />
   </ItemGroup>
   <ItemGroup>
