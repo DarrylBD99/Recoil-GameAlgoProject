@@ -11,7 +11,7 @@ public class DamageFlash : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
-        Entity entity = GetComponent<Entity>();
+        Entity entity = GetComponentInParent<Entity>();
         entity.OnDamaged += OnDamage;
         _material = GetComponent<SpriteRenderer>().material;
 
