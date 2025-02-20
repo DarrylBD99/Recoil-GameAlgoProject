@@ -9,13 +9,16 @@ public class PlayerController : MonoBehaviour
     void Start() {
         _entity = GetComponent<Entity>();
         _sprite = gameObject.transform.Find("Sprite").gameObject;
+
+        EnemyBase.Target = _entity;
     }
 
-    // Update is called once per frame
-    void Update() {
+    // Update is called once per physics frame
+    void FixedUpdate() {
         // Move player
         Vector3 moveDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        _entity.moveEntity(moveDir, Time.deltaTime);
+
+        _entity.MoveEntityRigidbody(moveDir);
 
         // Look at Mouse
         Vector3 mouseDir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);

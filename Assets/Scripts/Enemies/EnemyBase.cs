@@ -1,13 +1,13 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class EnemyBase : MonoBehaviour
 {
-    protected Entity target;
+    public static Entity Target;
     protected GameObject sprite;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
-        target = GameObject.FindWithTag("Player").GetComponent<Entity>();
         sprite = gameObject.transform.Find("Sprite").gameObject;
     }
 

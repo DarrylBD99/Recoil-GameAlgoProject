@@ -17,9 +17,12 @@ public class Entity : MonoBehaviour
     [NonSerialized]
     public float health;
 
+    private Rigidbody2D _rigidBody;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
         health = maxHealth;
+        _rigidBody = GetComponent<Rigidbody2D>();
     }
 
     // Damages Entity
@@ -42,8 +45,13 @@ public class Entity : MonoBehaviour
         }
     }
 
-    // Move Entity
-    public void moveEntity(Vector3 dir, float deltaTime) {
-        transform.position += dir * deltaTime * speed;
+    // Move entity by direction
+    public void MoveEntityRigidbody(Vector3 moveDir) {
+        if (Mathf.Sqrt(Mathf.Pow(moveDir.x, 2) + Mathf.Pow(moveDir.y, 2)) > 1f)
+            moveDir.Normalize();
+
+        Vector2 newPos = transform.position + moveDir * Time.fixedDeltaTime * speed;
+
+        _rigidBody.MovePosition(newPos);
     }
 }
