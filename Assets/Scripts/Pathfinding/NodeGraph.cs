@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class NodeGraph: MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class NodeGraph: MonoBehaviour
     public GameObject nodePrefab;
 
     [NonSerialized]
-    public HashSet<Node> nodes = new();
+    public HashSet<Node> nodes;
 
     // Directions
     public static int[] moveX = { -1, -1, -1, 0, 0, 1, 1, 1 };
@@ -22,6 +23,8 @@ public class NodeGraph: MonoBehaviour
         // Clear children
         while (transform.childCount > 0)
             DestroyImmediate(transform.GetChild(0).gameObject);
+
+        nodes = new HashSet<Node>();
 
         // Get all tiles in tilemap
         BoundsInt bounds = groundTilemap.cellBounds;
@@ -72,7 +75,9 @@ public class NodeGraph: MonoBehaviour
             foreach (int dir in dirs)
             {
                 Node neighbor = HasConnection(this, node, dir, bounds);
-                if (neighbor != null) node.connections[neighbor] = 1;
+
+                if (neighbor != null)
+                    node.connections[neighbor] = 1;
             }
 
             // Check for neighbors in diagonals (cost: 2)
@@ -89,13 +94,12 @@ public class NodeGraph: MonoBehaviour
         return Physics2D.BoxCast(nodePos, cellSize/2, 0f, Vector2.zero, 0f, LayerMask.GetMask("Obstacles"));
     }
 
-    public static Node HasConnection(NodeGraph nodeGraph, Node currentNode, int direction, BoundsInt bounds)
-    {
+    // Check if neighbor of node in specified direction exists
+    public static Node HasConnection(NodeGraph nodeGraph, Node currentNode, int direction, BoundsInt bounds) {
         int neighborX = currentNode.x + moveX[direction];
         int neighborY = currentNode.y + moveY[direction];
 
-        if ((0 <= neighborX && neighborX < bounds.size.x) && (0 <= neighborY && neighborY < bounds.size.y))
-        {
+        if ((0 <= neighborX && neighborX < bounds.size.x) && (0 <= neighborY && neighborY < bounds.size.y)) {
             Node neighborNode = GetNode(nodeGraph, neighborX, neighborY);
 
             return neighborNode;
