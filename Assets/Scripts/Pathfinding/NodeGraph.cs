@@ -2,29 +2,48 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class NodeGraph: MonoBehaviour
 {
     [SerializeField]
+    public static NodeGraph instance;
     public Grid grid;
     public Tilemap groundTilemap;
     public GameObject nodePrefab;
 
     [NonSerialized]
-    public HashSet<Node> nodes;
+    public Dictionary<Vector2Int, Node> nodes;
 
     // Directions
     public static int[] moveX = { -1, -1, -1, 0, 0, 1, 1, 1 };
     public static int[] moveY = { -1, 0, 1, -1, 1, -1, 0, 1 };
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start() {
+        if (transform.childCount <= 0)
+            GenerateNodes();
+    }
+
+    public Node PositionToNodePos(Vector2 position) {
+        Vector2 cellBounds = new Vector2(groundTilemap.cellBounds.x, groundTilemap.cellBounds.y);
+        Vector2 cellSize = groundTilemap.cellSize;
+        Vector2 anchor = groundTilemap.tileAnchor;
+
+        position = (position - (cellBounds + anchor));
+
+        Vector2Int nodePos = new((int)(position.x / cellSize.x), (int)(position.y / cellSize.y));
+
+        nodes.TryGetValue(nodePos, out Node ret);
+
+        return ret;
+    }
 
     public void GenerateNodes() {
         // Clear children
         while (transform.childCount > 0)
             DestroyImmediate(transform.GetChild(0).gameObject);
 
-        nodes = new HashSet<Node>();
+        nodes = new();
 
         // Get all tiles in tilemap
         BoundsInt bounds = groundTilemap.cellBounds;
@@ -41,6 +60,7 @@ public class NodeGraph: MonoBehaviour
         }
 
         GenerateConnections(bounds);
+        instance = this;
     }
 
     // Creates Nodes in specific tiles
@@ -55,11 +75,12 @@ public class NodeGraph: MonoBehaviour
             if (HasObstacle(nodePos, cellSize)) return;
 
             GameObject node = Instantiate(nodePrefab, nodePos, Quaternion.identity, transform);
+            node.name = "Node_" + nodes.Count;
             Node nodeComponent = node.GetComponent<Node>();
             nodeComponent.x = x;
             nodeComponent.y = y;
-
-            nodes.Add(nodeComponent);
+            
+            nodes.Add(new(x, y), nodeComponent);
         }
     }
 
@@ -69,7 +90,7 @@ public class NodeGraph: MonoBehaviour
         int[] dirs = { 1, 3, 4, 6 }; // (Left = 1, Down = 3, Up = 4, Right = 6)
         int[] dirsDiagonal = { 0, 2, 5, 7 }; // (BottomLeft = 0, TopLeft = 2, BottomRight = 5, TopRight = 7)
 
-        foreach (Node node in nodes)
+        foreach (Node node in nodes.Values)
         {
             // Check for neighbors in non-diagonal (cost: 1)
             foreach (int dir in dirs)
@@ -110,9 +131,13 @@ public class NodeGraph: MonoBehaviour
 
     // Get Node from node position
     public static Node GetNode(NodeGraph nodeGraph, int x, int y) {
-        foreach (Node node in nodeGraph.nodes) {
+        foreach (Node node in nodeGraph.nodes.Values) {
             if (node.x == x && node.y == y) { return node; }
         }
         return null;
+    }
+
+    public static Node PositionToNodePos(NodeGraph nodeGraph, Vector2 position) {
+        return nodeGraph.PositionToNodePos(position);
     }
 }

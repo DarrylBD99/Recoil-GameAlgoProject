@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Entity.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyBase.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\NodeGraph_Editor.cs" />
+    <Compile Include="Assets\Scripts\Pathfinding\AStar.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\NodeGraph.cs" />
     <Compile Include="Assets\Scripts\EntityCanvas.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\Node.cs" />

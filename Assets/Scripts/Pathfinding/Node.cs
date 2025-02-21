@@ -4,7 +4,11 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     public int x, y;
-    public Dictionary<Node, int> connections = new();
+    public ulong g, h;
+    public bool visited;
+    public Node parent;
+
+    public Dictionary<Node, ulong> connections = new();
 
     private void OnDrawGizmosSelected()
     {

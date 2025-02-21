@@ -2831,7 +2831,7 @@ GameObject:
   - component: {fileID: 1083151306}
   m_Layer: 0
   m_Name: NodeGraph
-  m_TagString: Untagged
+  m_TagString: NodeGraph
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124972,7 +124972,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1319037566818266852, guid: 6bfcf51a4a4038745a409421a0a42108, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.97
+      value: 21.17
       objectReference: {fileID: 0}
     - target: {fileID: 1319037566818266852, guid: 6bfcf51a4a4038745a409421a0a42108, type: 3}
       propertyPath: m_LocalPosition.y
@@ -125013,6 +125013,10 @@ PrefabInstance:
     - target: {fileID: 4969402616257153964, guid: 6bfcf51a4a4038745a409421a0a42108, type: 3}
       propertyPath: m_Name
       value: Agile
+      objectReference: {fileID: 0}
+    - target: {fileID: 6734907137774217394, guid: 6bfcf51a4a4038745a409421a0a42108, type: 3}
+      propertyPath: speed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8999823400829908350, guid: 6bfcf51a4a4038745a409421a0a42108, type: 3}
       propertyPath: m_AnchorMax.x
