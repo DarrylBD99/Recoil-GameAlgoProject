@@ -18,6 +18,7 @@ public class Entity : MonoBehaviour
     public float bulletSpeed;
     public float maxHealth;
     public float range;
+    public int xp;
 
     public AudioClip damageAudio;
     public AudioClip stepAudio;
