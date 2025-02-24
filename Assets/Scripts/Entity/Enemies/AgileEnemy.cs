@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AgileEnemy : EnemyBase
@@ -82,7 +81,7 @@ public class AgileEnemy : EnemyBase
                     if (hitObject.collider.gameObject.GetComponent<Entity>() == Target) {
                         Target.damage(entity.attack);
                         _damagedTarget = true;
-                        yield return null;
+                        break;
                     }
             }
             yield return null;

@@ -197,9 +197,11 @@ MonoBehaviour:
   BulletPrefab: {fileID: 8296704058011388400, guid: 0f72ba2a0f943044bb6e093774e14857, type: 3}
   attack: 0
   speed: 6
+  attackSpeed: 0
   attackCooldown: 0.5
   bulletSpeed: 12
   maxHealth: 10
+  range: 0
   damageAudio: {fileID: 8300000, guid: f69dbac10b4e0854085bdc14d305a018, type: 3}
   stepAudio: {fileID: 8300000, guid: 25355e9c304906d4786211ace9bf606f, type: 3}
 --- !u!114 &3135287779557112280
@@ -242,7 +244,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &8617384445736999710
 CircleCollider2D:
   m_ObjectHideFlags: 0

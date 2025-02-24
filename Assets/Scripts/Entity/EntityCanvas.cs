@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,8 +34,7 @@ public class EntityCanvas : MonoBehaviour
         _elapsedSeconds = 0f;
     }
 
-    void Update()
-    {
+    void Update() {
         if (_showHealthBar) {
             _elapsedSeconds += Time.deltaTime;
 
@@ -45,6 +43,5 @@ public class EntityCanvas : MonoBehaviour
         }
 
         _healthBar.SetActive(_showHealthBar);
-        transform.rotation = Quaternion.identity;
     }
 }
