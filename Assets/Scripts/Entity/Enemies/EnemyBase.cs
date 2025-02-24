@@ -15,6 +15,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected void Start() {
         sprite = gameObject.transform.Find("Sprite").gameObject;
         entity = gameObject.GetComponent<Entity>();
+        entity.OnDeath += OnDeath;
     }
 
     // Update is called once per frame
@@ -35,6 +36,11 @@ public abstract class EnemyBase : MonoBehaviour
                 GetComponent<AudioSource>().clip = entity.stepAudio;
                 GetComponent<AudioSource>().Play();
             }
+    }
+
+    // Give xp on death
+    protected void OnDeath() {
+        HUD.AddXP(entity.xp);
     }
 
     // Update Rotation of enemy to face target

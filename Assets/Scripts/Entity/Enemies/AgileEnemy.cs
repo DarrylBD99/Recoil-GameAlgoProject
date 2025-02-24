@@ -29,20 +29,20 @@ public class AgileEnemy : EnemyBase
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected new void Start() {
+        base.Start();
+
         _currentState = State.Follow;
         _damagedTarget = false;
         _cooldownBool = false;
         _cooldown = 0f;
-        entity.OnDeath += OnDeath;
 
         dagger.SetActive(false);
-
-        base.Start();
     }
 
     // Hotfix to ensure currentTargetNode's occupiedEntity is set to null before being destroyed
-    private void OnDeath() {
+    protected new void OnDeath() {
         _currentTargetNode.occupiedEntity = null;
+        base.OnDeath();
     }
 
     // Update is called once per frame

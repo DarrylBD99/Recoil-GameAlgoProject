@@ -23,6 +23,7 @@ public class NodeGraph: MonoBehaviour
     void Start() {
         if (transform.childCount <= 0)
             GenerateNodes();
+        instance = this;
     }
 
     public Node PositionToNodePos(Vector2 position) {
@@ -61,7 +62,6 @@ public class NodeGraph: MonoBehaviour
         }
 
         GenerateConnections(bounds);
-        instance = this;
     }
 
     // Creates Nodes in specific tiles

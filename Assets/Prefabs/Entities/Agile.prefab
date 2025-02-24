@@ -310,7 +310,7 @@ MonoBehaviour:
   bulletSpeed: 0
   maxHealth: 4
   range: 1.5
-  xp: 0
+  xp: 1
   damageAudio: {fileID: 8300000, guid: f69dbac10b4e0854085bdc14d305a018, type: 3}
   stepAudio: {fileID: 8300000, guid: 25355e9c304906d4786211ace9bf606f, type: 3}
 --- !u!114 &3865830752342955720
