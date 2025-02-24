@@ -99,7 +99,7 @@ public class NodeGraph: MonoBehaviour
             {
                 Node neighbor = HasConnection(this, node, dir, bounds);
 
-                if (neighbor != null && !HasObstacleBetween(node.transform.position, neighbor.transform.position, cellSize))
+                if (neighbor != null)
                     node.connections[neighbor] = 1;
             }
 
@@ -114,16 +114,15 @@ public class NodeGraph: MonoBehaviour
 
     // Check if obstacle collision is in specific tile given world position
     public static bool HasObstacle(Vector3 nodePos, Vector3 cellSize, float rotation = 0f) {
-        return Physics2D.BoxCast(nodePos, cellSize/2, rotation, Vector2.zero, 0f, LayerMask.GetMask("Obstacles"));
+        return Physics2D.BoxCast(nodePos, cellSize / 2, rotation, Vector2.zero, 0f, LayerMask.GetMask("Obstacles"));
     }
 
     // Check if obstacle collision is in specific positon between 2 nodes given world positions
-    public static bool HasObstacleBetween(Vector3 startPos, Vector3 endPos, Vector3 cellSize, float rotation = 0f)
-    {
-        Vector3 origin = startPos + (endPos - startPos);
-
-        return HasObstacle(origin, cellSize, rotation);
-    }
+    //public static bool HasObstacleBetween(Vector3 startPos, Vector3 endPos, Vector3 cellSize, float rotation = 0f)
+    //{
+    //    Vector3 origin = startPos + ((endPos - startPos) / 2);
+    //    return HasObstacle(origin, cellSize, rotation);
+    //}
 
     // Check if neighbor of node in specified direction exists
     public static Node HasConnection(NodeGraph nodeGraph, Node currentNode, int direction, BoundsInt bounds) {
