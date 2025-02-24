@@ -61,6 +61,8 @@
     <Analyzer Include="D:\Unity\6000.0.30f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\FF_Pathfinding\Cell.cs" />
+    <Compile Include="Assets\Scripts\FF_Pathfinding\FlowField.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\NodeGraph_Editor.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\AStar.cs" />
@@ -70,10 +72,12 @@
     <Compile Include="Assets\Scripts\Entity\Enemies\AgileEnemy.cs" />
     <Compile Include="Assets\Scripts\Entity\EntityCanvas.cs" />
     <Compile Include="Assets\Scripts\Entity\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\FF_Pathfinding\GridDebug.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\Node.cs" />
     <Compile Include="Assets\HUD.cs" />
     <Compile Include="Assets\Scripts\Entity\Entity.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+    <Compile Include="Assets\Scripts\FF_Pathfinding\GridController.cs" />
     <Compile Include="Assets\Scripts\DamageFlash.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\DamageButton.cs" />

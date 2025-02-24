@@ -31,8 +31,26 @@ public class EnemySpawner : MonoBehaviour
 
         if (spawnTime <= 0)
         {
-            Instantiate(enemyPrefab, SelectSpawnPoint(), transform.rotation);
-            ResetSpawnTimer();
+            if (enemyPrefab != null)
+            {
+                GameObject newEnemy = Instantiate(enemyPrefab, SelectSpawnPoint(), Quaternion.identity);
+
+                if (newEnemy != null)
+                {
+                    // Ensure the object doesn't get destroyed before using it
+                    DontDestroyOnLoad(newEnemy);
+                }
+                else
+                {
+                    Debug.LogError("Failed to instantiate enemy!");
+                }
+
+                ResetSpawnTimer();
+            }
+            else
+            {
+                Debug.LogError("EnemyPrefab is missing or destroyed!");
+            }
         }
     }
 
