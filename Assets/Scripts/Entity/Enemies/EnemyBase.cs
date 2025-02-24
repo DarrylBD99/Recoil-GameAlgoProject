@@ -11,8 +11,8 @@ public abstract class EnemyBase : MonoBehaviour
     // Pathfinding Variables
     public AStar.Heuristic aStarHeuristic = AStarHeuristic.Manhattan;
     
-    private LinkedList<Node> path;
-    private Vector3 moveDir = Vector3.zero;
+    private LinkedList<Node> _path;
+    private Vector3 _moveDir;
     private Node _targetNode;
     private Node _currentNode;
 
@@ -46,25 +46,27 @@ public abstract class EnemyBase : MonoBehaviour
     // Get velocity of enemy to next node
     private void UpdateMovement()
     {
-        if (path != null && path.Count > 0)
+        if (_path != null && _path.Count > 0)
         {
-            Node nextNode = path.Last();
+            Node nextNode = _path.Last();
 
             if (Vector3.Distance(nextNode.transform.position, transform.position) <= 0.1)
             {
                 _currentNode = nextNode;
-                path.RemoveLast();
+                _path.RemoveLast();
             }
 
-            moveDir = nextNode.transform.position - transform.position;
-            moveDir.Normalize();
+            _moveDir = nextNode.transform.position - transform.position;
+            _moveDir.Normalize();
+        } else {
+            _moveDir = Vector3.zero;
         }
     }
 
     // Move enemy to next node in path
     private void MovePosition()
     {
-        entity.MoveEntityRigidbody(moveDir);
+        entity.MoveEntityRigidbody(_moveDir);
     }
 
     // Get A* Path
@@ -75,12 +77,12 @@ public abstract class EnemyBase : MonoBehaviour
         if (_currentNode == null)
             _currentNode = NodeGraph.PositionToNodePos(NodeGraph.instance, transform.position);
 
-        if (_targetNode != targetNode)
+        if (_targetNode != targetNode || _path == null || _path.Count < 0)
         {
             _targetNode = targetNode;
 
             if (_currentNode != null && _currentNode != _targetNode)
-                path = AStar.GeneratePath(NodeGraph.instance, _currentNode, _targetNode, aStarHeuristic);
+                _path = AStar.GeneratePath(NodeGraph.instance, _currentNode, _targetNode, aStarHeuristic);
         }
     }
 

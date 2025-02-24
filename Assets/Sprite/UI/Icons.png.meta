@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac7725c7d5ff3d04a8db7aca93ace921
+guid: 961c8b64cfd8e9b47b90961eae1ff8da
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -20,9 +20,6 @@ TextureImporter:
   - first:
       213: -1863859237976802683
     second: Icons_5
-  - first:
-      213: 7576617242518483205
-    second: Icons_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -69,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -90,9 +87,9 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 128
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -118,7 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icons_0
+      name: Icon_Attack
       rect:
         serializedVersion: 2
         x: 0
@@ -126,7 +123,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,7 +137,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons_1
+      name: Icon_Defense
       rect:
         serializedVersion: 2
         x: 16
@@ -148,7 +145,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,7 +159,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons_2
+      name: Icon_MovementSpeed
       rect:
         serializedVersion: 2
         x: 32
@@ -170,7 +167,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,7 +181,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons_3
+      name: Icon_Health
       rect:
         serializedVersion: 2
         x: 48
@@ -192,7 +189,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,15 +203,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons_4
+      name: Icon_AttackCooldown
       rect:
         serializedVersion: 2
-        x: 67
-        y: 1
-        width: 11
-        height: 13
+        x: 64
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,15 +225,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons_5
+      name: Icon_BulletSpeed
       rect:
         serializedVersion: 2
         x: 80
-        y: 3
+        y: 0
         width: 16
-        height: 9
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -250,23 +247,23 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons_6
+      name: MaxHealth
       rect:
         serializedVersion: 2
         x: 96
-        y: 0
+        y: 1
         width: 16
-        height: 16
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 501f96b4d3d852960800000000000000
-      internalID: 7576617242518483205
+      spriteID: 04a9b1177ceae6144abe97e71325bfe1
+      internalID: -110725054
       vertices: []
       indices: 
       edges: []
@@ -275,7 +272,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: fc505b4aa43f130449958685be19319b
     internalID: 0
     vertices: []
     indices: 
@@ -284,7 +281,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Icon_Attack: 1161201145128540330
+      Icon_AttackCooldown: 5543941588292853863
+      Icon_BulletSpeed: -1863859237976802683
+      Icon_Defense: 2130535880278150251
+      Icon_Health: 1202984965197363600
+      Icon_MovementSpeed: 184950751378207249
+      MaxHealth: -110725054
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

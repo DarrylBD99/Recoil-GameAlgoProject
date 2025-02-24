@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static Unity.VisualScripting.Member;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,6 +20,7 @@ public class PlayerController : MonoBehaviour
         attackAction.action.started += SpawnBullet;
 
         EnemyBase.Target = _entity;
+        HUD.player = _entity;
     }
 
     // Spawn bullet when attack action is pressed

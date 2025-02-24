@@ -1,28 +1,10 @@
 fileFormatVersion: 2
-guid: ac7725c7d5ff3d04a8db7aca93ace921
+guid: 012cabfb7ea6dec4985e9f1532d07853
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1161201145128540330
-    second: Icons_0
-  - first:
-      213: 2130535880278150251
-    second: Icons_1
-  - first:
-      213: 184950751378207249
-    second: Icons_2
-  - first:
-      213: 1202984965197363600
-    second: Icons_3
-  - first:
-      213: 5543941588292853863
-    second: Icons_4
-  - first:
-      213: -1863859237976802683
-    second: Icons_5
-  - first:
-      213: 7576617242518483205
-    second: Icons_6
+      213: 5468776193085415958
+    second: HUD_bar_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -69,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -90,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 32
     resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
+    textureFormat: 4
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,155 +100,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icons_0
+      name: HUD_bar_health
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 1
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61228f809fef4eb40800000000000000
+      internalID: 5468776193085415958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_bar_xp
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 1
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34031b5f1bd1d93459478acb7c30c92e
+      internalID: -1476275704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_bar_health_bg
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2
+        width: 1
+        height: 5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: aa8d9280a4a6d1010800000000000000
-      internalID: 1161201145128540330
+      spriteID: 1cad9269964166b4492d972a9ba40627
+      internalID: -408247303
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons_1
+      name: HUD_bar_xp_bg
       rect:
         serializedVersion: 2
-        x: 16
+        x: 1
         y: 0
-        width: 16
-        height: 16
+        width: 1
+        height: 2
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b6c0435581f219d10800000000000000
-      internalID: 2130535880278150251
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icons_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 112f6dc7ab3119200800000000000000
-      internalID: 184950751378207249
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icons_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 09979b0c37cd1b010800000000000000
-      internalID: 1202984965197363600
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icons_4
-      rect:
-        serializedVersion: 2
-        x: 67
-        y: 1
-        width: 11
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 760e5b1608900fc40800000000000000
-      internalID: 5543941588292853863
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icons_5
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 3
-        width: 16
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 58aff01f5ed3226e0800000000000000
-      internalID: -1863859237976802683
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icons_6
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 501f96b4d3d852960800000000000000
-      internalID: 7576617242518483205
+      spriteID: 42d3bbeca27207044942337f5e04c84c
+      internalID: 584048687
       vertices: []
       indices: 
       edges: []
@@ -275,7 +191,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 66e73ac82e7f33540ba287347add247f
     internalID: 0
     vertices: []
     indices: 
@@ -284,7 +200,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      HUD_bar_health: 5468776193085415958
+      HUD_bar_health_bg: -408247303
+      HUD_bar_xp: -1476275704
+      HUD_bar_xp_bg: 584048687
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

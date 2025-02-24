@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Entity\EntityCanvas.cs" />
     <Compile Include="Assets\Scripts\Entity\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\Node.cs" />
+    <Compile Include="Assets\HUD.cs" />
     <Compile Include="Assets\Scripts\Entity\Entity.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\DamageFlash.cs" />
