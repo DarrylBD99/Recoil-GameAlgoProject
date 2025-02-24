@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     public Transform bulletStart;
     public InputActionReference attackAction;
+    public static Entity PlayerInstance;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
         attackAction.action.started += SpawnBullet;
 
         EnemyBase.Target = _entity;
-        HUD.player = _entity;
+        PlayerInstance = _entity;
     }
 
     // Spawn bullet when attack action is pressed

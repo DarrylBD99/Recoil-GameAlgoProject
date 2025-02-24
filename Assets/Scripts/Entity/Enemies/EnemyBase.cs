@@ -18,21 +18,21 @@ public abstract class EnemyBase : MonoBehaviour
     private Node _currentTargetNode;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() {
+    protected void Start() {
         sprite = gameObject.transform.Find("Sprite").gameObject;
         entity = gameObject.GetComponent<Entity>();
         entity.OnDeath += OnDeath;
     }
 
     // Update is called once per frame
-    void Update() {
+    protected void Update() {
         UpdatePathfinding();
         UpdateMovement();
         UpdateRotation();
     }
 
     // Update is called once per fixed frame
-    void FixedUpdate() {
+    protected void FixedUpdate() {
         MovePosition();
     }
 
@@ -45,8 +45,8 @@ public abstract class EnemyBase : MonoBehaviour
     private void UpdateRotation() {
         // Look at Target
         Vector2 targetDir = Target.transform.position - transform.position;
-        float angle = (Mathf.Atan2(targetDir.y, targetDir.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
-        sprite.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        float rotation = (Mathf.Atan2(targetDir.y, targetDir.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
+        sprite.transform.rotation = Quaternion.AngleAxis(rotation, Vector3.forward);
     }
 
     // Get velocity of enemy to next node
@@ -76,6 +76,12 @@ public abstract class EnemyBase : MonoBehaviour
     // Move enemy to next node in path
     private void MovePosition() {
         entity.MoveEntityRigidbody(_moveDir);
+
+        if (_moveDir.magnitude > 0f)
+            if (!(entity.stepAudio == GetComponent<AudioSource>().clip && GetComponent<AudioSource>().isPlaying)) {
+                GetComponent<AudioSource>().clip = entity.stepAudio;
+                GetComponent<AudioSource>().Play();
+            }
     }
 
     // Get A* Path

@@ -13,11 +13,14 @@ public class Entity : MonoBehaviour
 
     public float attack;
     public float speed;
+    public float attackSpeed;
     public float attackCooldown;
     public float bulletSpeed;
     public float maxHealth;
+    public float range;
 
     public AudioClip damageAudio;
+    public AudioClip stepAudio;
 
     [NonSerialized]
     public float health;

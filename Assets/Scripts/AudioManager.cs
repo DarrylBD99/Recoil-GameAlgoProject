@@ -9,8 +9,10 @@ public class AudioManager : MonoBehaviour
     void Start() { instance = this; }
 
     // Play sound effect
-    public static void PlaySoundEffect(AudioClip audio)
-    {
+    public static void PlaySoundEffect(AudioClip audio) {
+        if (audio == instance.soundEffects.clip && instance.soundEffects.isPlaying)
+            return;
+
         instance.soundEffects.clip = audio;
         instance.soundEffects.Play();
     }
