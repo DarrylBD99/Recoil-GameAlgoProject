@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AgileEnemy : EnemyBase
@@ -11,6 +13,11 @@ public class AgileEnemy : EnemyBase
     private bool _damagedTarget;
     private bool _cooldownBool;
     private float _cooldown;
+
+    // A* Pathfinding
+    private LinkedList<Node> _path;
+    private Node _targetNode;
+    private Node _currentTargetNode;
 
     // States for Agile Enemy
     protected enum State {
@@ -26,10 +33,16 @@ public class AgileEnemy : EnemyBase
         _damagedTarget = false;
         _cooldownBool = false;
         _cooldown = 0f;
+        entity.OnDeath += OnDeath;
 
         dagger.SetActive(false);
 
         base.Start();
+    }
+
+    // Hotfix to ensure currentTargetNode's occupiedEntity is set to null before being destroyed
+    private void OnDeath() {
+        _currentTargetNode.occupiedEntity = null;
     }
 
     // Update is called once per frame
@@ -90,5 +103,69 @@ public class AgileEnemy : EnemyBase
         _cooldownBool = true;
         dagger.SetActive(false);
         _damagedTarget = false;
+    }
+
+    // Update Rotation of enemy to face target
+    protected override void UpdateRotation() {
+        // Look at Target
+        Vector2 targetDir = Target.transform.position - transform.position;
+        float rotation = (Mathf.Atan2(targetDir.y, targetDir.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
+        sprite.transform.rotation = Quaternion.AngleAxis(rotation, Vector3.forward);
+    }
+
+    // Get velocity of enemy to next node
+    protected override void UpdateMovement() {
+        if (!_path.IsUnityNull() && _path.Count > 0) {
+            Node nextNode = _path.Last();
+
+            if (Vector3.Distance(nextNode.transform.position, transform.position) <= 0.1) {
+                //_currentTargetNode.occupiedEntity = null;
+                _currentTargetNode = nextNode;
+                //_currentTargetNode.occupiedEntity = entity;
+                _path.RemoveLast();
+            }
+
+            if (!(_currentTargetNode.occupiedEntity.IsUnityNull() || _currentTargetNode.occupiedEntity == entity)) {
+                _path = null;
+                return;
+            }
+
+            moveDir = nextNode.transform.position - transform.position;
+            moveDir.Normalize();
+        } else {
+            moveDir = Vector3.zero;
+        }
+    }
+
+    // Get A* Path
+    protected override void UpdatePathfinding() {
+        if (!NodeGraph.instance.IsUnityNull()) {
+            Node targetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, Target.transform.position);
+
+            if (_currentTargetNode.IsUnityNull())
+                _currentTargetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, transform.position);
+
+            if (_targetNode != targetNode || _path == null || _path.Count < 0) {
+                _targetNode = targetNode;
+
+                if (!_currentTargetNode.IsUnityNull() && !_targetNode.IsUnityNull() && _currentTargetNode != _targetNode)
+                    _path = AStar.GeneratePath(NodeGraph.instance, _currentTargetNode, _targetNode, aStarHeuristic);
+            }
+        }
+    }
+
+    // Draws A* Path
+    void OnDrawGizmos() {
+        if (!_path.IsUnityNull()) {
+            Gizmos.color = Color.blue;
+            Node previousNode = null;
+
+            foreach (Node node in _path) {
+                if (previousNode != null)
+                    Gizmos.DrawLine(previousNode.transform.position, node.transform.position);
+
+                previousNode = node;
+            }
+        }
     }
 }
