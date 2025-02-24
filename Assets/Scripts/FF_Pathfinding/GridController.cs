@@ -44,6 +44,9 @@ public class GridController : MonoBehaviour
         // Get the player's position dynamically
         Vector3 worldPlayerPos = player.position;
 
+        // Offset position by one grid cell upwards (assuming Y is up in 2D)
+        worldPlayerPos.y += 1;
+
         // Convert world position to a valid grid cell
         Cell destinationCell = curFlowField.GetCellFromWorldPos(worldPlayerPos);
 
@@ -52,11 +55,12 @@ public class GridController : MonoBehaviour
             return; // Skip unnecessary updates
         }
 
-        Debug.Log($"New Destination: {destinationCell.gridIndex}");
+        Debug.Log($"New Destination (1 Grid Higher): {destinationCell.gridIndex}");
 
         curFlowField.CreateIntegrationField(destinationCell);
         curFlowField.CreateFlowField();
 
         gridDebug.DrawFlowField();
     }
+
 }
