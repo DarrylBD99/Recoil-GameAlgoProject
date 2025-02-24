@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -65,7 +66,7 @@ public class NodeGraph: MonoBehaviour
 
     // Creates Nodes in specific tiles
     public void CreateNode(TileBase tile, int x, int y, Vector3 anchor, BoundsInt bounds, Vector3 cellSize) {
-        if (tile != null) {
+        if (!tile.IsUnityNull()) {
             Vector3 nodePos = new Vector3(
                 (x * cellSize.x) + bounds.x + anchor.x,
                 (y * cellSize.y) + bounds.y + anchor.y,
@@ -98,7 +99,7 @@ public class NodeGraph: MonoBehaviour
             {
                 Node neighbor = HasConnection(this, node, dir, bounds);
 
-                if (neighbor != null)
+                if (!neighbor.IsUnityNull())
                     node.connections[neighbor] = 1;
             }
 
@@ -106,7 +107,7 @@ public class NodeGraph: MonoBehaviour
             foreach (int dir in dirsDiagonal)
             {
                 Node neighbor = HasConnection(this, node, dir, bounds);
-                if (neighbor != null) node.connections[neighbor] = 2;
+                if (!neighbor.IsUnityNull() && !HasObstacleBetween(node.transform.position, neighbor.transform.position, cellSize)) node.connections[neighbor] = 2;
             }
         }
     }
@@ -117,11 +118,14 @@ public class NodeGraph: MonoBehaviour
     }
 
     // Check if obstacle collision is in specific positon between 2 nodes given world positions
-    //public static bool HasObstacleBetween(Vector3 startPos, Vector3 endPos, Vector3 cellSize, float rotation = 0f)
-    //{
-    //    Vector3 origin = startPos + ((endPos - startPos) / 2);
-    //    return HasObstacle(origin, cellSize, rotation);
-    //}
+    public static bool HasObstacleBetween(Vector3 startPos, Vector3 endPos, Vector3 cellSize, float rotation = 0f)
+    {
+        Vector3 offset = ((endPos - startPos));
+        Vector3 posX = new(startPos.x + offset.x, startPos.y);
+        Vector3 posY = new(startPos.x, startPos.y + offset.y);
+
+        return (HasObstacle(posX, cellSize, rotation) && HasObstacle(posY, cellSize, rotation));
+    }
 
     // Check if neighbor of node in specified direction exists
     public static Node HasConnection(NodeGraph nodeGraph, Node currentNode, int direction, BoundsInt bounds) {
