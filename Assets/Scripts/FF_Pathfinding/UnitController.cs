@@ -7,7 +7,7 @@ public class UnitController : MonoBehaviour
     public GridController gridController;
     public GameObject unitPrefab;
     public int numUnitsPerSpawn;
-    public float moveSpeed;
+    //public float moveSpeed;
 
     private List<GameObject> unitsInGame;
 
@@ -35,20 +35,26 @@ public class UnitController : MonoBehaviour
 
         foreach (GameObject unit in unitsInGame)
         {
+            Entity entity = unit.GetComponent<Entity>();
+            if (entity == null) { continue; } // Ensure the unit has an Entity component
+
             Cell cellBelow = gridController.curFlowField.GetCellFromWorldPos(unit.transform.position);
-            if (cellBelow == null) { continue; } // Avoid errors if unit is out of bounds
+            if (cellBelow == null) { continue; } // Prevent errors if unit is out of bounds
 
             Vector2 moveDirection = new Vector2(cellBelow.bestDirection.Vector.x, cellBelow.bestDirection.Vector.y);
+            if (moveDirection == Vector2.zero) { continue; } // Skip if there's no movement direction
 
             Rigidbody2D unitRB = unit.GetComponent<Rigidbody2D>();
             if (unitRB != null)
             {
-                unitRB.linearVelocity = moveDirection * moveSpeed;
-            }
+                unitRB.linearVelocity = moveDirection * entity.speed; // Use Entity's movement speed
 
-            Debug.Log($"Unit at {unit.transform.position}: Direction {cellBelow.bestDirection}");
+                float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+                unit.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
+            }
         }
     }
+
 
 
     private void SpawnUnits()

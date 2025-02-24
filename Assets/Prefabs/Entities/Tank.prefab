@@ -167,12 +167,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 8296704058011388400, guid: 0f72ba2a0f943044bb6e093774e14857, type: 3}
   attack: 0
-  speed: 0
+  speed: 2
   attackSpeed: 0
   attackCooldown: 0
   bulletSpeed: 0
-  maxHealth: 0
-  range: 0
+  maxHealth: 10
+  range: 1
   xp: 0
   damageAudio: {fileID: 8300000, guid: f69dbac10b4e0854085bdc14d305a018, type: 3}
   stepAudio: {fileID: 8300000, guid: 25355e9c304906d4786211ace9bf606f, type: 3}
