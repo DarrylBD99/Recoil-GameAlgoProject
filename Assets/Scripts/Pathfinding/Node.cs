@@ -4,9 +4,6 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     public int x, y;
-    public ulong g, h;
-    public bool visited;
-    public Node parent;
 
     public Dictionary<Node, ulong> connections = new();
 

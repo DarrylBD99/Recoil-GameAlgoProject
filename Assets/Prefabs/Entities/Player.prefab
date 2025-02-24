@@ -83,7 +83,7 @@ MonoBehaviour:
   BulletPrefab: {fileID: 8296704058011388400, guid: 0f72ba2a0f943044bb6e093774e14857, type: 3}
   attack: 0
   speed: 6
-  attackCooldown: 1
+  attackCooldown: 0.5
   bulletSpeed: 12
   maxHealth: 10
   damageAudio: {fileID: 8300000, guid: f69dbac10b4e0854085bdc14d305a018, type: 3}

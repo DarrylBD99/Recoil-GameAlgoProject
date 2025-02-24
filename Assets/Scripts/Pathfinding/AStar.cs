@@ -8,16 +8,15 @@ public class AStar : MonoBehaviour
     public delegate ulong Heuristic(Node start, Node end);
 
     public static LinkedList<Node> GeneratePath(NodeGraph nodeGraph, Node start, Node end, Heuristic heuristic) {
+        Dictionary<Node, AStarData> astarNodeDictionary= new();
         List<Node> astarNodes = new();
 
         foreach (Node node in nodeGraph.nodes.Values) {
-            node.g = ulong.MaxValue;
-            node.visited = false;
-            node.parent = null;
+            astarNodeDictionary.Add(node, new(ulong.MaxValue));
         }
 
-        start.g = 0;
-        start.h = heuristic(start, end);
+        astarNodeDictionary[start].g = 0;
+        astarNodeDictionary[start].h = heuristic(start, end);
         astarNodes.Add(start);
 
         while(astarNodes.Count > 0)
@@ -26,12 +25,12 @@ public class AStar : MonoBehaviour
 
             // Get node with lowest weight (g + h)
             foreach (Node node in astarNodes)
-                if (CalculateWeight(node) < CalculateWeight(currentNode))
+                if (CalculateWeight(astarNodeDictionary[node]) < CalculateWeight(astarNodeDictionary[currentNode]))
                     currentNode = node;
-            
+
             // Mark current node as visited
             astarNodes.Remove(currentNode);
-            currentNode.visited = true;
+            astarNodeDictionary[currentNode].visited = true;
 
             if (currentNode == end) {
                 LinkedList<Node> path = new();
@@ -40,7 +39,7 @@ public class AStar : MonoBehaviour
 
                 while (currentNode != start) {
                     path.AddLast(currentNode);
-                    currentNode = currentNode.parent;
+                    currentNode = astarNodeDictionary[currentNode].parent;
                 }
 
                 return path;
@@ -48,13 +47,13 @@ public class AStar : MonoBehaviour
 
             foreach (Node neighbor in currentNode.connections.Keys) {
                 // ignore visited neighbors
-                if (neighbor.visited) continue;
+                if (astarNodeDictionary[neighbor].visited) continue;
 
-                ulong gNew = currentNode.g + currentNode.connections[neighbor];
-                if (neighbor.g > gNew) {
-                    neighbor.g = gNew;
-                    neighbor.parent = currentNode;
-                    neighbor.h = heuristic(neighbor, end);
+                ulong gNew = astarNodeDictionary[currentNode].g + currentNode.connections[neighbor];
+                if (astarNodeDictionary[neighbor].g > gNew) {
+                    astarNodeDictionary[neighbor].g = gNew;
+                    astarNodeDictionary[neighbor].parent = currentNode;
+                    astarNodeDictionary[neighbor].h = heuristic(neighbor, end);
 
                     if (!astarNodes.Contains(neighbor))
                         astarNodes.Add(neighbor);
@@ -68,9 +67,22 @@ public class AStar : MonoBehaviour
         return g + h;
     }
 
-    public static ulong CalculateWeight(Node node)
+    public static ulong CalculateWeight(AStarData nodeData)
     {
-        return CalculateWeight(node.g, node.h);
+        return CalculateWeight(nodeData.g, nodeData.h);
+    }
+}
+
+public class AStarData
+{
+    public ulong g, h;
+    public bool visited;
+    public Node parent;
+
+    public AStarData(ulong g) {
+        this.g = g;
+        parent = null;
+        visited = false;
     }
 }
 
