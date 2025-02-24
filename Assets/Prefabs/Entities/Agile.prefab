@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 0}
   attack: 0
-  speed: 10
+  speed: 6.5
   attackCooldown: 0
   bulletSpeed: 0
   maxHealth: 4

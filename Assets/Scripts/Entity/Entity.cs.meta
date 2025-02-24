@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 41ca5819bc40d3b43a9ef898fd1489ba
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - BulletPrefab: {fileID: 8296704058011388400, guid: 0f72ba2a0f943044bb6e093774e14857, type: 3}
+  - damageAudio: {fileID: 8300000, guid: f69dbac10b4e0854085bdc14d305a018, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

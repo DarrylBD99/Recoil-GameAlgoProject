@@ -15,12 +15,13 @@ public abstract class EnemyBase : MonoBehaviour
     private LinkedList<Node> _path;
     private Vector3 _moveDir;
     private Node _targetNode;
-    private Node _currentNode;
+    private Node _currentTargetNode;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
         sprite = gameObject.transform.Find("Sprite").gameObject;
         entity = gameObject.GetComponent<Entity>();
+        entity.OnDeath += OnDeath;
     }
 
     // Update is called once per frame
@@ -35,9 +36,13 @@ public abstract class EnemyBase : MonoBehaviour
         MovePosition();
     }
 
+    // Hotfix to ensure currentTargetNode's occupiedEntity is set to null before being destroyed
+    void OnDeath() {
+        _currentTargetNode.occupiedEntity = null;
+    }
+
     // Update Rotation of enemy to face target
-    private void UpdateRotation()
-    {
+    private void UpdateRotation() {
         // Look at Target
         Vector2 targetDir = Target.transform.position - transform.position;
         float angle = (Mathf.Atan2(targetDir.y, targetDir.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
@@ -45,16 +50,20 @@ public abstract class EnemyBase : MonoBehaviour
     }
 
     // Get velocity of enemy to next node
-    private void UpdateMovement()
-    {
-        if (!_path.IsUnityNull() && _path.Count > 0)
-        {
+    private void UpdateMovement() {
+        if (!_path.IsUnityNull() && _path.Count > 0) {
             Node nextNode = _path.Last();
 
-            if (Vector3.Distance(nextNode.transform.position, transform.position) <= 0.1)
-            {
-                _currentNode = nextNode;
+            if (Vector3.Distance(nextNode.transform.position, transform.position) <= 0.1) {
+                //_currentTargetNode.occupiedEntity = null;
+                _currentTargetNode = nextNode;
+                //_currentTargetNode.occupiedEntity = entity;
                 _path.RemoveLast();
+            }
+
+            if (!(_currentTargetNode.occupiedEntity.IsUnityNull() || _currentTargetNode.occupiedEntity == entity)) {
+                _path = null;
+                return;
             }
 
             _moveDir = nextNode.transform.position - transform.position;
@@ -65,44 +74,37 @@ public abstract class EnemyBase : MonoBehaviour
     }
 
     // Move enemy to next node in path
-    private void MovePosition()
-    {
+    private void MovePosition() {
         entity.MoveEntityRigidbody(_moveDir);
     }
 
     // Get A* Path
-    private void UpdatePathfinding()
-    {
+    private void UpdatePathfinding() {
         Node targetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, Target.transform.position);
 
-        if (_currentNode.IsUnityNull())
-            _currentNode = NodeGraph.PositionToNodePos(NodeGraph.instance, transform.position);
+        if (_currentTargetNode.IsUnityNull())
+            _currentTargetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, transform.position);
 
-        if (_targetNode != targetNode || _path == null || _path.Count < 0)
-        {
+        if (_targetNode != targetNode || _path == null || _path.Count < 0) {
             _targetNode = targetNode;
 
-            if (!_targetNode.IsUnityNull() && _currentNode != _targetNode)
-                _path = AStar.GeneratePath(NodeGraph.instance, _currentNode, _targetNode, aStarHeuristic);
+            if (!_currentTargetNode.IsUnityNull() && !_targetNode.IsUnityNull() && _currentTargetNode != _targetNode)
+                _path = AStar.GeneratePath(NodeGraph.instance, _currentTargetNode, _targetNode, aStarHeuristic);
         }
     }
 
-
     // Draws A* Path
-    void OnDrawGizmos()
-    {
-        if (!_path.IsUnityNull())
-        {
+    void OnDrawGizmos() {
+        if (!_path.IsUnityNull()) {
             Gizmos.color = Color.blue;
             Node previousNode = null;
-            foreach (Node node in _path)
-            {
+
+            foreach (Node node in _path) {
                 if (previousNode != null)
                     Gizmos.DrawLine(previousNode.transform.position, node.transform.position);
 
                 previousNode = node;
             }
-
         }
     }
 }
