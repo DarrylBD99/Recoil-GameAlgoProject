@@ -113,9 +113,9 @@ GameObject:
   - component: {fileID: 3865830752342955720}
   - component: {fileID: 3730373559018972413}
   - component: {fileID: 4122355666255374712}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Agile
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,10 +149,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ca5819bc40d3b43a9ef898fd1489ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: 0}
   attack: 0
   speed: 10
   attackSpeed: 0
+  bulletSpeed: 0
   maxHealth: 4
+  damageAudio: {fileID: 8300000, guid: f69dbac10b4e0854085bdc14d305a018, type: 3}
 --- !u!114 &3865830752342955720
 MonoBehaviour:
   m_ObjectHideFlags: 0

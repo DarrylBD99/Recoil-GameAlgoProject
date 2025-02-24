@@ -12,7 +12,7 @@ public abstract class EnemyBase : MonoBehaviour
     public AStar.Heuristic aStarHeuristic = AStarHeuristic.Manhattan;
     
     private LinkedList<Node> path;
-    private Vector3 moveDir;
+    private Vector3 moveDir = Vector3.zero;
     private Node _targetNode;
     private Node _currentNode;
 
@@ -20,8 +20,6 @@ public abstract class EnemyBase : MonoBehaviour
     void Start() {
         sprite = gameObject.transform.Find("Sprite").gameObject;
         entity = gameObject.GetComponent<Entity>();
-
-        moveDir = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -81,7 +79,7 @@ public abstract class EnemyBase : MonoBehaviour
         {
             _targetNode = targetNode;
 
-            if (_currentNode != _targetNode)
+            if (_currentNode != null && _currentNode != _targetNode)
                 path = AStar.GeneratePath(NodeGraph.instance, _currentNode, _targetNode, aStarHeuristic);
         }
     }

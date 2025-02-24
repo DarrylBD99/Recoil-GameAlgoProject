@@ -26,6 +26,7 @@ public class EntityCanvas : MonoBehaviour
         _healthBarSlider.maxValue = _entity.maxHealth;
         _healthBarSlider.value = _entity.health;
         _healthBar.SetActive(_showHealthBar);
+
     }
 
     void UpdateHealthBar() {
@@ -44,5 +45,6 @@ public class EntityCanvas : MonoBehaviour
         }
 
         _healthBar.SetActive(_showHealthBar);
+        transform.rotation = Quaternion.identity;
     }
 }
