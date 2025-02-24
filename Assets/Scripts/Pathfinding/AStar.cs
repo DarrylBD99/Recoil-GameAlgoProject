@@ -39,7 +39,7 @@ public class AStar : MonoBehaviour
                 path.AddFirst(end);
 
                 while (currentNode != start) {
-                    path.AddFirst(currentNode);             //changed
+                    path.AddLast(currentNode);
                     currentNode = currentNode.parent;
                 }
 
@@ -61,8 +61,6 @@ public class AStar : MonoBehaviour
                 }
             }
         }
-
-        Debug.LogError("Error: No path can be found");
         return null;
     }
 
@@ -89,6 +87,6 @@ public class AStarHeuristic
     {
         int x = end.x - start.x;
         int y = end.y - start.y;
-        return (ulong)(x * x + y * y);      //changed
+        return (ulong)(x * x + y * y);
     }
 }

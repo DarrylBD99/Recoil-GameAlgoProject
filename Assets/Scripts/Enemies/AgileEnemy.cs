@@ -1,4 +1,5 @@
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AgileEnemy : EnemyBase
@@ -16,27 +17,50 @@ public class AgileEnemy : EnemyBase
     protected override void UpdateMovement() {
         if (path != null && path.Count > 0) {
             Node nextNode = path.Last();
-            if (nextNode == _currentNode)
+
+            if (Vector3.Distance(nextNode.transform.position, transform.position) <= 0.1) {
+                _currentNode = nextNode;
                 path.RemoveLast();
+            }
 
             moveDir = nextNode.transform.position - transform.position;
+            moveDir.Normalize();
         }
     }
 
     protected override void MovePosition() {
         entity.MoveEntityRigidbody(moveDir);
-        _currentNode = NodeGraph.PositionToNodePos(NodeGraph.instance, transform.position);
     }
 
     protected override void UpdatePathfinding() {
+        Node targetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, Target.transform.position);
+
         if (_currentNode == null)
             _currentNode = NodeGraph.PositionToNodePos(NodeGraph.instance, transform.position);
 
-        Node targetNode = NodeGraph.instance.PositionToNodePos(Target.transform.position);
-
         if (_targetNode != targetNode) {
             _targetNode = targetNode;
-            path = AStar.GeneratePath(NodeGraph.instance, _currentNode, targetNode, AStarHeuristic.Manhattan);
+
+            if (_currentNode != _targetNode)
+                path = AStar.GeneratePath(NodeGraph.instance, _currentNode, _targetNode, AStarHeuristic.Manhattan);
         }
     }
+
+    // Draws A* Path
+    //void OnDrawGizmos()
+    //{
+    //    if (!path.IsUnityNull())
+    //    {
+    //        Gizmos.color = Color.blue;
+    //        Node previousNode = null;
+    //        foreach (Node node in path)
+    //        {
+    //            if (previousNode != null)
+    //                Gizmos.DrawLine(previousNode.transform.position, node.transform.position);
+
+    //            previousNode = node;
+    //        }
+
+    //    }
+    //}
 }

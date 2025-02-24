@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -89,6 +90,7 @@ public class NodeGraph: MonoBehaviour
     {
         int[] dirs = { 1, 3, 4, 6 }; // (Left = 1, Down = 3, Up = 4, Right = 6)
         int[] dirsDiagonal = { 0, 2, 5, 7 }; // (BottomLeft = 0, TopLeft = 2, BottomRight = 5, TopRight = 7)
+        Vector3 cellSize = groundTilemap.cellSize;
 
         foreach (Node node in nodes.Values)
         {
@@ -97,7 +99,7 @@ public class NodeGraph: MonoBehaviour
             {
                 Node neighbor = HasConnection(this, node, dir, bounds);
 
-                if (neighbor != null)
+                if (neighbor != null && !HasObstacleBetween(node.transform.position, neighbor.transform.position, cellSize))
                     node.connections[neighbor] = 1;
             }
 
@@ -111,8 +113,16 @@ public class NodeGraph: MonoBehaviour
     }
 
     // Check if obstacle collision is in specific tile given world position
-    public static bool HasObstacle(Vector3 nodePos, Vector3 cellSize) {
-        return Physics2D.BoxCast(nodePos, cellSize/2, 0f, Vector2.zero, 0f, LayerMask.GetMask("Obstacles"));
+    public static bool HasObstacle(Vector3 nodePos, Vector3 cellSize, float rotation = 0f) {
+        return Physics2D.BoxCast(nodePos, cellSize/2, rotation, Vector2.zero, 0f, LayerMask.GetMask("Obstacles"));
+    }
+
+    // Check if obstacle collision is in specific positon between 2 nodes given world positions
+    public static bool HasObstacleBetween(Vector3 startPos, Vector3 endPos, Vector3 cellSize, float rotation = 0f)
+    {
+        Vector3 origin = startPos + (endPos - startPos);
+
+        return HasObstacle(origin, cellSize, rotation);
     }
 
     // Check if neighbor of node in specified direction exists
