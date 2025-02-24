@@ -14,9 +14,15 @@ public class EnemySpawner : MonoBehaviour
     private float spawnTime;
     public Transform minSpawnPoint, maxSpawnPoint;
 
+    private Transform target;
+
     private void Awake()
     {
         ResetSpawnTimer();
+    }
+    private void Start()
+    {
+
     }
 
     void Update()
@@ -25,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (spawnTime <= 0)
         {
-            Instantiate(enemyPrefab, SelectSpawnPoint(), Quaternion.identity);
+            Instantiate(enemyPrefab, SelectSpawnPoint(), transform.rotation);
             ResetSpawnTimer();
         }
     }
