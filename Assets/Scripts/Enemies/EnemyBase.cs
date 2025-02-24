@@ -7,6 +7,9 @@ public abstract class EnemyBase : MonoBehaviour
     public static Entity Target;
     protected GameObject sprite;
     protected Entity entity;
+
+    // Pathfinding Variables
+    public AStar.Heuristic aStarHeuristic = AStarHeuristic.Manhattan;
     
     private LinkedList<Node> path;
     private Vector3 moveDir;
@@ -79,7 +82,7 @@ public abstract class EnemyBase : MonoBehaviour
             _targetNode = targetNode;
 
             if (_currentNode != _targetNode)
-                path = AStar.GeneratePath(NodeGraph.instance, _currentNode, _targetNode, AStarHeuristic.Manhattan);
+                path = AStar.GeneratePath(NodeGraph.instance, _currentNode, _targetNode, aStarHeuristic);
         }
     }
 

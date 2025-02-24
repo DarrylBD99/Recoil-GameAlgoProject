@@ -6,5 +6,4 @@ public class AgileEnemy : EnemyBase
         Follow,
         Attack
     }
-
 }
