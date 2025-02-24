@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour
@@ -6,9 +7,11 @@ public abstract class EnemyBase : MonoBehaviour
     public static Entity Target;
     protected GameObject sprite;
     protected Entity entity;
-    protected Vector3 moveDir;
-
-    protected LinkedList<Node> path;
+    
+    private LinkedList<Node> path;
+    private Vector3 moveDir;
+    private Node _targetNode;
+    private Node _currentNode;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
@@ -25,15 +28,77 @@ public abstract class EnemyBase : MonoBehaviour
         UpdateRotation();
     }
 
+    // Update is called once per fixed frame
     void FixedUpdate() {
         MovePosition();
     }
 
-    protected abstract void MovePosition();
+    // Update Rotation of enemy to face target
+    private void UpdateRotation()
+    {
+        // Look at Target
+        Vector2 targetDir = Target.transform.position - transform.position;
+        float angle = (Mathf.Atan2(targetDir.y, targetDir.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
+        sprite.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
 
-    protected abstract void UpdateRotation();
+    // Get velocity of enemy to next node
+    private void UpdateMovement()
+    {
+        if (path != null && path.Count > 0)
+        {
+            Node nextNode = path.Last();
 
-    protected abstract void UpdatePathfinding();
+            if (Vector3.Distance(nextNode.transform.position, transform.position) <= 0.1)
+            {
+                _currentNode = nextNode;
+                path.RemoveLast();
+            }
 
-    protected abstract void UpdateMovement();
+            moveDir = nextNode.transform.position - transform.position;
+            moveDir.Normalize();
+        }
+    }
+
+    // Move enemy to next node in path
+    private void MovePosition()
+    {
+        entity.MoveEntityRigidbody(moveDir);
+    }
+
+    // Get A* Path
+    private void UpdatePathfinding()
+    {
+        Node targetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, Target.transform.position);
+
+        if (_currentNode == null)
+            _currentNode = NodeGraph.PositionToNodePos(NodeGraph.instance, transform.position);
+
+        if (_targetNode != targetNode)
+        {
+            _targetNode = targetNode;
+
+            if (_currentNode != _targetNode)
+                path = AStar.GeneratePath(NodeGraph.instance, _currentNode, _targetNode, AStarHeuristic.Manhattan);
+        }
+    }
+
+
+    // Draws A* Path
+    //void OnDrawGizmos()
+    //{
+    //    if (!path.IsUnityNull())
+    //    {
+    //        Gizmos.color = Color.blue;
+    //        Node previousNode = null;
+    //        foreach (Node node in path)
+    //        {
+    //            if (previousNode != null)
+    //                Gizmos.DrawLine(previousNode.transform.position, node.transform.position);
+
+    //            previousNode = node;
+    //        }
+
+    //    }
+    //}
 }
