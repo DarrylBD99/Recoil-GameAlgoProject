@@ -39,8 +39,8 @@ public class AStar : MonoBehaviour
                 path.AddFirst(end);
 
                 while (currentNode != start) {
+                    path.AddFirst(currentNode);             //changed
                     currentNode = currentNode.parent;
-                    path.AddLast(currentNode);
                 }
 
                 return path;
@@ -89,6 +89,6 @@ public class AStarHeuristic
     {
         int x = end.x - start.x;
         int y = end.y - start.y;
-        return (ulong)Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
+        return (ulong)(x * x + y * y);      //changed
     }
 }
