@@ -57,12 +57,6 @@ public class UpgradeUI : MonoBehaviour
         StartCoroutine(EnableUpgrade());
     }
 
-    IEnumerator EnableUpgrade() {
-        yield return new WaitForSecondsRealtime(_timer);
-        foreach (UpgradePlate upgradePlate in _upgradePlates)
-            upgradePlate.enabled = true;
-    }
-
     void UpgradeSelected(StatType statType, float amount) {
         Time.timeScale = 1f; // Resume Game
         _upgradesUI.SetActive(false);

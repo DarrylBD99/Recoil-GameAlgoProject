@@ -22,11 +22,8 @@ public class UpgradePlate : MonoBehaviour
     [NonSerialized]
     public StatType upgradeStat;
 
-    private bool _enabled;
-
     // Set up Upgrade Plate details
     public void SetStatType(StatType statType, float value) {
-        _enabled = false;
         this.value = value;
         upgradeStat = statType;
         string statTypeString = "";
@@ -76,7 +73,6 @@ public class UpgradePlate : MonoBehaviour
 
     // Upgrade plate is clicked
     public void SelectUpgrade() {
-        if (_enabled)
-            OnUpgradePlateSeleceted?.Invoke(upgradeStat, value);
+        OnUpgradePlateSeleceted?.Invoke(upgradeStat, value);
     }
 }
