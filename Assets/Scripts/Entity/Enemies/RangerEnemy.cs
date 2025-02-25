@@ -1,11 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class RangerEnemy : EnemyBase
 {
@@ -25,12 +21,6 @@ public class RangerEnemy : EnemyBase
         base.Start();
         _cooldownBool = false;
         _cooldown = 0f;
-    }
-
-    protected new void OnDeath()
-    {
-        _currentTargetNode.occupiedEntity = null;
-        base.OnDeath();
     }
 
     protected new void Update()
@@ -86,12 +76,6 @@ public class RangerEnemy : EnemyBase
             {
                 _currentTargetNode = nextNode;
                 _path.RemoveLast();
-            }
-
-            if (!(_currentTargetNode.occupiedEntity == null || _currentTargetNode.occupiedEntity == entity))
-            {
-                _path = null;
-                return;
             }
 
             moveDir = nextNode.transform.position - transform.position;
