@@ -7014,8 +7014,8 @@ MonoBehaviour:
   tankPrefab: {fileID: 8018890171494101136, guid: e2f894a198ed97f47afed1a23852c469, type: 3}
   minimumSpawnTime: 8
   maximumSpawnTime: 12
-  rangerChance: 3
-  tankChance: 2
+  rangerChance: 5
+  tankChance: 3
   groundTilemap: {fileID: 1185711398}
   minSpawnPoint: {fileID: 1340235121}
   maxSpawnPoint: {fileID: 751653664}
