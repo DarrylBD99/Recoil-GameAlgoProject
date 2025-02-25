@@ -28,6 +28,7 @@ public class HUD : MonoBehaviour
         xpTotal = _xp;
         _maxXp = 3;
         surviveSeconds = 0f;
+        Time.timeScale = 1;
 
         _deathScreen.SetActive(false);
     }

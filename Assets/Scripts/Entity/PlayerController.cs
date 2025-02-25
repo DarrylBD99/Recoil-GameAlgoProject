@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
         EnemyBase.Target = _entity;
         PlayerInstance = _entity;
+        Debug.Log(Time.timeScale);
     }
 
 
