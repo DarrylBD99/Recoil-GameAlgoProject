@@ -99,8 +99,11 @@ public class EnemySpawner : MonoBehaviour
             if (!ValidPosition(spawnPoint, bounds, halfSize))
                 return SelectSpawnPoint(halfSize, enemyBase);
         }
+
         if (enemyBase.CanSpawnInLocation(spawnPoint))
             return spawnPoint;
+
+        return SelectSpawnPoint(halfSize, enemyBase);
     }
 
     private bool ValidPosition(Vector3 position, BoundsInt bounds, float halfSize) {
