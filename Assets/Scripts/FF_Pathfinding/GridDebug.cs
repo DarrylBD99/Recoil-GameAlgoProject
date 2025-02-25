@@ -6,7 +6,6 @@ public enum FlowFieldDisplayType { None, AllIcons, DestinationIcon, CostField, I
 
 public class GridDebug : MonoBehaviour
 {
-    public GridController gridController;
     public bool displayGrid;
 
     public FlowFieldDisplayType curDisplayType;
@@ -150,7 +149,7 @@ public class GridDebug : MonoBehaviour
         {
             if (curFlowField == null)
             {
-                DrawGrid(gridController.gridSize, Color.yellow, gridController.cellRadius);
+                DrawGrid(GridController.Instance.gridSize, Color.yellow, GridController.Instance.cellRadius);
             }
             else
             {
@@ -191,13 +190,13 @@ public class GridDebug : MonoBehaviour
 
     public void DrawGrid(Vector2Int drawGridSize, Color drawColor, float drawCellRadius)
     {
-        if (gridController == null) return; // Ensure GridController is assigned
+        if (GridController.Instance == null) return; // Ensure GridController is assigned
 
         Gizmos.color = drawColor;
         float cellDiameter = drawCellRadius * 2;
 
         // Offset grid position based on the GridController's world position
-        Vector3 gridOrigin = gridController.transform.position;
+        Vector3 gridOrigin = GridController.Instance.transform.position;
 
         for (int x = 0; x < drawGridSize.x; x++)
         {

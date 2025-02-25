@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class UnitController : MonoBehaviour
 {
-    public GridController gridController;
     public GameObject unitPrefab;
     public int numUnitsPerSpawn;
     //public float moveSpeed;
@@ -29,38 +28,36 @@ public class UnitController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (gridController.curFlowField == null) { return; }
+    //private void FixedUpdate()
+    //{
+    //    if (GridController.Instance.curFlowField == null) { return; }
 
-        foreach (GameObject unit in unitsInGame)
-        {
-            Entity entity = unit.GetComponent<Entity>();
-            if (entity == null) { continue; } // Ensure the unit has an Entity component
+    //    foreach (GameObject unit in unitsInGame)
+    //    {
+    //        Entity entity = unit.GetComponent<Entity>();
+    //        if (entity == null) { continue; } // Ensure the unit has an Entity component
 
-            Cell cellBelow = gridController.curFlowField.GetCellFromWorldPos(unit.transform.position);
-            if (cellBelow == null) { continue; } // Prevent errors if unit is out of bounds
+    //        Cell cellBelow = GridController.Instance.curFlowField.GetCellFromWorldPos(unit.transform.position);
+    //        if (cellBelow == null) { continue; } // Prevent errors if unit is out of bounds
 
-            Vector2 moveDirection = new Vector2(cellBelow.bestDirection.Vector.x, cellBelow.bestDirection.Vector.y);
-            if (moveDirection == Vector2.zero) { continue; } // Skip if there's no movement direction
+    //        Vector2 moveDirection = new Vector2(cellBelow.bestDirection.Vector.x, cellBelow.bestDirection.Vector.y);
+    //        if (moveDirection == Vector2.zero) { continue; } // Skip if there's no movement direction
 
-            Rigidbody2D unitRB = unit.GetComponent<Rigidbody2D>();
-            if (unitRB != null)
-            {
-                unitRB.linearVelocity = moveDirection * entity.speed; // Use Entity's movement speed
+    //        Rigidbody2D unitRB = unit.GetComponent<Rigidbody2D>();
+    //        if (unitRB != null)
+    //        {
+    //            unitRB.linearVelocity = moveDirection * entity.speed; // Use Entity's movement speed
 
-                float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-                unit.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
-            }
-        }
-    }
-
-
+    //            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+    //            unit.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
+    //        }
+    //    }
+    //}
 
     private void SpawnUnits()
     {
-        Vector2Int gridSize = gridController.gridSize;
-        float nodeRadius = gridController.cellRadius;
+        Vector2Int gridSize = GridController.Instance.gridSize;
+        float nodeRadius = GridController.Instance.cellRadius;
         Vector2 maxSpawnPos = new Vector2(gridSize.x * nodeRadius * 2 + nodeRadius, gridSize.y * nodeRadius * 2 + nodeRadius);
         int colMask = LayerMask.GetMask("Obstacles", "Entity");
         Vector3 newPos;

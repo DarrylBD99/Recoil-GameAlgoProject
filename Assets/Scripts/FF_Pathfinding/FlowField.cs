@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,10 +10,6 @@ public class FlowField
     private float cellDiameter;
 
     public Cell destinationCell;
-
-    GridController gridController;
-
-    GridDebug gridDebug;
 
 
     public FlowField(float _cellRadius, Vector2Int _gridSize)

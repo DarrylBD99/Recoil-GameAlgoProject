@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 4535971432798820919}
   - component: {fileID: 1675260119647292081}
   - component: {fileID: 2888072266683298718}
+  - component: {fileID: 686703958946769913}
   - component: {fileID: 1657016658853069579}
   m_Layer: 7
   m_Name: Tank
@@ -136,7 +137,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 1.1309735
+  m_Mass: 0.7853982
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -186,7 +187,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.6
+  m_Radius: 0.5
 --- !u!114 &2888072266683298718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,9 +208,21 @@ MonoBehaviour:
   bulletSpeed: 0
   maxHealth: 15
   range: 1.5
-  xp: 3
+  xp: 4
   damageAudio: {fileID: 8300000, guid: f69dbac10b4e0854085bdc14d305a018, type: 3}
   stepAudio: {fileID: 8300000, guid: 25355e9c304906d4786211ace9bf606f, type: 3}
+--- !u!114 &686703958946769913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8018890171494101136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 501175c7a6152114bb1914b6deba8f68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &1657016658853069579
 AudioSource:
   m_ObjectHideFlags: 0

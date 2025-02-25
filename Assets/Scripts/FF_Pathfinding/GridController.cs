@@ -1,40 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GridController : MonoBehaviour
 {
-    public Vector2Int gridSize;
+    public static GridController Instance { get; private set; }
+    public static Transform Player; // Reference to the player's Transform
+    public Tilemap groundTilemap;
     public float cellRadius = 0.5f;
+
+    [NonSerialized]
+    public Vector2Int gridSize;
     public FlowField curFlowField;
     public GridDebug gridDebug;
-    public Transform player; // Reference to the player's Transform
-
+    
     private Vector3 lastPlayerPosition; // Store the last known player position
 
     private void Start()
     {
+        Player = PlayerController.PlayerInstance.transform;
         InitializeFlowField();
-        lastPlayerPosition = player.position; // Save the initial position
+        Instance = this;
     }
 
     private void Update()
     {
-        if (player == null) return;
+        if (Player.IsUnityNull()) return;
 
         // Only update if the player has moved significantly
-        if (Vector3.Distance(player.position, lastPlayerPosition) > cellRadius * 0.5f)
-        {
+        if (Vector3.Distance(Player.position, lastPlayerPosition) > cellRadius * 0.5f)
             UpdateFlowField();
-            lastPlayerPosition = player.position; // Update the last known position
-        }
     }
 
     private void InitializeFlowField()
     {
+        BoundsInt gridBounds = groundTilemap.cellBounds;
+        gridSize = new(gridBounds.size.x, gridBounds.size.y);
         curFlowField = new FlowField(cellRadius, gridSize);
-        curFlowField.CreateGrid(transform.position); // Passes GridController's position
+        curFlowField.CreateGrid(transform.position + gridBounds.position); // Passes GridController's position offset from the grid bounds
         gridDebug.SetFlowField(curFlowField);
+
+        UpdateFlowField(); // initial update
     }
 
     private void UpdateFlowField()
@@ -42,7 +49,7 @@ public class GridController : MonoBehaviour
         curFlowField.CreateCostField();
 
         // Get the player's position dynamically
-        Vector3 worldPlayerPos = player.position;
+        Vector3 worldPlayerPos = Player.position;
 
         // Offset position by one grid cell upwards (assuming Y is up in 2D)
         worldPlayerPos.y += 1;
@@ -50,8 +57,7 @@ public class GridController : MonoBehaviour
         // Convert world position to a valid grid cell
         Cell destinationCell = curFlowField.GetCellFromWorldPos(worldPlayerPos);
 
-        if (destinationCell == null || destinationCell == curFlowField.destinationCell)
-        {
+        if (destinationCell == null || destinationCell == curFlowField.destinationCell) {
             return; // Skip unnecessary updates
         }
 
@@ -61,6 +67,8 @@ public class GridController : MonoBehaviour
         curFlowField.CreateFlowField();
 
         gridDebug.DrawFlowField();
+
+        lastPlayerPosition = Player.position; // Update the last known position
     }
 
 }
