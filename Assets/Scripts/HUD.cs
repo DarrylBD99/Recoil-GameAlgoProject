@@ -11,8 +11,8 @@ public class HUD : MonoBehaviour
     public static LeveledUp OnLevelUp;
     public static int Level = 1;
     private static int _xp = 0;
-    private static int _maxXp = 5;
-    private static float _maxXpMultiplier = 1.5f;
+    private static int _maxXp = 3;
+    private static int _maxXpMultiplier = 2;
 
     // Update is called once per frame
     void Update() {
@@ -27,7 +27,7 @@ public class HUD : MonoBehaviour
         _xp += amount;
         if (_xp >= _maxXp) {
             _xp -= _maxXp;
-            _maxXp = (int)(_maxXp * _maxXpMultiplier);
+            _maxXp *= _maxXpMultiplier;
             Level++;
             OnLevelUp?.Invoke();
             Debug.Log("Max XP: " + _maxXp);

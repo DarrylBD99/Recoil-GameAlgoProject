@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1aaf90aca1aeb814899465e1c796727c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - attackIcon: {fileID: 1161201145128540330, guid: 961c8b64cfd8e9b47b90961eae1ff8da, type: 3}
+  - defenseIcon: {fileID: 2130535880278150251, guid: 961c8b64cfd8e9b47b90961eae1ff8da, type: 3}
+  - speedIcon: {fileID: 184950751378207249, guid: 961c8b64cfd8e9b47b90961eae1ff8da, type: 3}
+  - healthIcon: {fileID: 1202984965197363600, guid: 961c8b64cfd8e9b47b90961eae1ff8da, type: 3}
+  - attackCooldownIcon: {fileID: 5543941588292853863, guid: 961c8b64cfd8e9b47b90961eae1ff8da, type: 3}
+  - bulletSpeedIcon: {fileID: -1863859237976802683, guid: 961c8b64cfd8e9b47b90961eae1ff8da, type: 3}
+  - maxHealthIcon: {fileID: -110725054, guid: 961c8b64cfd8e9b47b90961eae1ff8da, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
