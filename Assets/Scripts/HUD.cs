@@ -18,7 +18,7 @@ public class HUD : MonoBehaviour
     private static int _maxXp;
     private static float _maxXpMultiplier = 1.5f;
 
-    private bool _playerInstanceInitialised = false;
+    private bool _playerDead = false;
     
     [SerializeField] private GameObject _deathScreen;
 
@@ -34,9 +34,9 @@ public class HUD : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        if (!(_playerInstanceInitialised || PlayerController.PlayerInstance.IsUnityNull())) {
-            PlayerController.PlayerInstance.OnDeath += ShowDeathScreen;
-            _playerInstanceInitialised = true;
+        if (!_playerDead && PlayerController.PlayerInstance.IsDestroyed()) {
+            ShowDeathScreen();
+            _playerDead = true;
         }
 
         hpBar.maxValue = PlayerController.PlayerInstance.maxHealth;
