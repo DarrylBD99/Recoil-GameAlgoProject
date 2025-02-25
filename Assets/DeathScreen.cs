@@ -25,7 +25,7 @@ public class DeathScreen : MonoBehaviour
 
     // Restart Button
     public void RestartGame() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1.0f; // Unpause game
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
