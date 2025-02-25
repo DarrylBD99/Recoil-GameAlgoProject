@@ -34,6 +34,7 @@ public class AgileEnemy : EnemyBase
         _damagedTarget = false;
         _cooldownBool = false;
         _cooldown = 0f;
+        _currentTargetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, transform.position);
 
         dagger.SetActive(false);
     }
