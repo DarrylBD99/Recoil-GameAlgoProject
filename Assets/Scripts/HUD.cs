@@ -19,8 +19,8 @@ public class HUD : MonoBehaviour
         hpBar.maxValue = PlayerController.PlayerInstance.maxHealth;
         hpBar.value = PlayerController.PlayerInstance.health;
 
-        xpBar.maxValue = _xp;
-        xpBar.value = _maxXp;
+        xpBar.maxValue = _maxXp;
+        xpBar.value = _xp;
     }
 
     public static void AddXP(int amount) {
