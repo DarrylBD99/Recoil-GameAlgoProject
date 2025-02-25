@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    public static int obstacleLayerMask = -1;
+
     public GameObject BulletPrefab;
 
     public delegate void IsDamaged();
@@ -32,6 +34,9 @@ public class Entity : MonoBehaviour
     void Start() {
         health = maxHealth;
         _rigidBody = GetComponent<Rigidbody2D>();
+
+        if (obstacleLayerMask <= -1)
+            obstacleLayerMask = LayerMask.GetMask("Obstacles");
     }
 
     // Damages Entity

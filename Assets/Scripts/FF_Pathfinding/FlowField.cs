@@ -42,7 +42,7 @@ public class FlowField
     public void CreateCostField()
     {
         Vector2 cellHalfExtents = Vector2.one * cellRadius;
-        int terrainMask = LayerMask.GetMask("Obstacles");
+        int terrainMask = Entity.obstacleLayerMask;
         foreach (Cell curCell in grid)
         {
             Collider2D[] obstacles = Physics2D.OverlapBoxAll(curCell.worldPos, cellHalfExtents, 0f, terrainMask);

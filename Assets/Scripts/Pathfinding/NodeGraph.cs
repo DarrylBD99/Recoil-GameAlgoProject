@@ -114,7 +114,7 @@ public class NodeGraph: MonoBehaviour
 
     // Check if obstacle collision is in specific tile given world position
     public static bool HasObstacle(Vector3 nodePos, Vector3 cellSize, float rotation = 0f) {
-        return Physics2D.BoxCast(nodePos, cellSize / 2, rotation, Vector2.zero, 0f, LayerMask.GetMask("Obstacles"));
+        return Physics2D.BoxCast(nodePos, cellSize / 2, rotation, Vector2.zero, 0f, Entity.obstacleLayerMask);
     }
 
     // Check if obstacle collision is in specific positon between 2 nodes given world positions

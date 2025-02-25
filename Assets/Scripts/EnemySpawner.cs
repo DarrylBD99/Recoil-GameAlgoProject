@@ -1,96 +1,119 @@
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
-    private GameObject enemyPrefab;
+    private GameObject agilePrefab, rangerPrefab, tankPrefab;
 
     [SerializeField]
-    private float minimumSpawnTime;
+    private float minimumSpawnTime, maximumSpawnTime, rangerChance, tankChance;
 
     [SerializeField]
-    private float maximumSpawnTime;
+    private Tilemap groundTilemap;
 
     private float spawnTime;
+    private int spawnFrequency = 0;
+    private int levelModulus = 3;
     public Transform minSpawnPoint, maxSpawnPoint;
 
-    private Transform target;
-
-    private void Awake()
-    {
+    void Start() {
         ResetSpawnTimer();
-    }
-    private void Start()
-    {
-
+        HUD.OnLevelUp += IncreaseFrequency;
     }
 
-    void Update()
-    {
+    void Update() {
         spawnTime -= Time.deltaTime;
+        if (spawnTime <= 0) {
+            UnitController.Instance.IsUnityNull();
 
-        if (spawnTime <= 0)
-        {
-            if (enemyPrefab != null)
-            {
-                GameObject newEnemy = Instantiate(enemyPrefab, SelectSpawnPoint(), Quaternion.identity);
-
-                if (newEnemy != null)
-                {
-                    // Ensure the object doesn't get destroyed before using it
-                    DontDestroyOnLoad(newEnemy);
-                }
-                else
-                {
-                    Debug.LogError("Failed to instantiate enemy!");
-                }
-
-                ResetSpawnTimer();
-            }
-            else
-            {
-                Debug.LogError("EnemyPrefab is missing or destroyed!");
-            }
+            SpawnEnemy(GetEnemyType());
+            ResetSpawnTimer();
         }
     }
 
-    private void ResetSpawnTimer()
-    {
-        spawnTime = Random.Range(minimumSpawnTime, maximumSpawnTime);
+    void SpawnEnemy(GameObject enemyPrefab) {
+        if (enemyPrefab.IsUnityNull()) {
+            Debug.LogError("EnemyPrefab is missing or destroyed!");
+            return;
+        }
+
+        CircleCollider2D collider = enemyPrefab.GetComponent<CircleCollider2D>();
+
+        if (collider.IsUnityNull()) {
+            Debug.LogError("EnemyPrefab is missing a collider!");
+            return;
+        }
+
+        GameObject newEnemy = Instantiate(enemyPrefab, SelectSpawnPoint(collider.radius), Quaternion.identity);
+
+        if (newEnemy.IsUnityNull()) {
+            Debug.LogError("Failed to instantiate enemy!");
+            return;
+        }
+
+        // Ensure the object doesn't get destroyed before using it
+        DontDestroyOnLoad(newEnemy);
     }
 
-    public Vector3 SelectSpawnPoint()
+    private void ResetSpawnTimer() {
+        spawnTime = Random.Range(minimumSpawnTime, maximumSpawnTime);
+        spawnTime /= Mathf.Pow(2, spawnFrequency);
+    }
+
+    public Vector3 SelectSpawnPoint(float halfSize)
     {
         Vector3 spawnPoint = Vector3.zero;
         bool spawnVerticalEdge = Random.Range(0f, 1f) > 0.5;
 
-        if (spawnVerticalEdge)
-        {
+        if (spawnVerticalEdge) {
             spawnPoint.y = Random.Range(minSpawnPoint.position.y, maxSpawnPoint.position.y);
 
             if (Random.Range(0f, 1f) > 0.5f)
-            {
                 spawnPoint.x = maxSpawnPoint.position.x;
-            }
             else
-            {
                 spawnPoint.x = minSpawnPoint.position.x;
-            }
-        }
-        else
-        {
+
+        } else {
             spawnPoint.x = Random.Range(minSpawnPoint.position.x, maxSpawnPoint.position.x);
 
             if (Random.Range(0f, 1f) > 0.5f)
-            {
                 spawnPoint.y = maxSpawnPoint.position.y;
-            }
             else
-            {
                 spawnPoint.y = minSpawnPoint.position.y;
-            }
+        }
+
+        if (!groundTilemap.IsUnityNull()) {
+            BoundsInt bounds = groundTilemap.cellBounds;
+            
+            if (ValidPosition(spawnPoint, bounds, halfSize))
+                return SelectSpawnPoint(halfSize);
         }
 
         return spawnPoint;
+    }
+
+    private bool ValidPosition(Vector3 position, BoundsInt bounds, float halfSize) {
+        if (position.x < bounds.x || position.x > bounds.xMax || position.y < bounds.y || position.y > bounds.yMax)
+            return false;
+
+        return !Physics2D.OverlapBox(position, new Vector2(halfSize, halfSize) / 2, 0f, Entity.obstacleLayerMask);
+    }
+
+    void IncreaseFrequency() {
+        if (HUD.Level % levelModulus == 0)
+            spawnFrequency++;
+    }
+
+    GameObject GetEnemyType() {
+        if (spawnFrequency > 2 && Random.Range(1, rangerChance) == 1)
+            return rangerPrefab;
+        
+        if (spawnFrequency > 5 && Random.Range(1, tankChance) == 1)
+            return tankPrefab;
+
+        return agilePrefab;
     }
 }

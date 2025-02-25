@@ -6995,14 +6995,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812087974}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949c5762b64a32345a6b21efeebc1c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 4969402616257153964, guid: 6bfcf51a4a4038745a409421a0a42108, type: 3}
-  minimumSpawnTime: 1
-  maximumSpawnTime: 3
+  agilePrefab: {fileID: 4969402616257153964, guid: 6bfcf51a4a4038745a409421a0a42108, type: 3}
+  rangerPrefab: {fileID: 4969402616257153964, guid: 9553f2efbfe333b4fa8de6be21705a8c, type: 3}
+  tankPrefab: {fileID: 8018890171494101136, guid: e2f894a198ed97f47afed1a23852c469, type: 3}
+  minimumSpawnTime: 8
+  maximumSpawnTime: 12
+  rangerChance: 5
+  tankChance: 3
+  groundTilemap: {fileID: 1185711398}
   minSpawnPoint: {fileID: 1340235121}
   maxSpawnPoint: {fileID: 751653664}
 --- !u!1 &950489052

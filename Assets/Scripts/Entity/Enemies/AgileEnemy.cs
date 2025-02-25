@@ -139,18 +139,19 @@ public class AgileEnemy : EnemyBase
 
     // Get A* Path
     protected override void UpdatePathfinding() {
-        if (!NodeGraph.instance.IsUnityNull()) {
-            Node targetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, Target.transform.position);
+        if (NodeGraph.instance.IsUnityNull())
+            return;
+        
+        Node targetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, Target.transform.position);
 
-            if (_currentTargetNode.IsUnityNull())
-                _currentTargetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, transform.position);
+        if (_currentTargetNode.IsUnityNull())
+            _currentTargetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, transform.position);
 
-            if (_targetNode != targetNode || _path == null || _path.Count < 0) {
-                _targetNode = targetNode;
+        if (_targetNode != targetNode || _path == null || _path.Count < 0) {
+            _targetNode = targetNode;
 
-                if (!_currentTargetNode.IsUnityNull() && !_targetNode.IsUnityNull() && _currentTargetNode != _targetNode)
-                    _path = AStar.GeneratePath(NodeGraph.instance, _currentTargetNode, _targetNode, aStarHeuristic);
-            }
+            if (!_currentTargetNode.IsUnityNull() && !_targetNode.IsUnityNull() && _currentTargetNode != _targetNode)
+                _path = AStar.GeneratePath(NodeGraph.instance, _currentTargetNode, _targetNode, aStarHeuristic);
         }
     }
 

@@ -1,32 +1,32 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitController : MonoBehaviour
 {
+    public static UnitController Instance { get; private set; }
     public GameObject unitPrefab;
     public int numUnitsPerSpawn;
-    //public float moveSpeed;
 
     private List<GameObject> unitsInGame;
 
     private void Awake()
     {
         unitsInGame = new List<GameObject>();
+        Instance = this;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SpawnUnits();
-        }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Alpha1))
+    //    {
+    //        SpawnUnits();
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            DestroyUnits();
-        }
-    }
+    //    if (Input.GetKeyDown(KeyCode.Alpha2))
+    //    {
+    //        DestroyUnits();
+    //    }
+    //}
 
     //private void FixedUpdate()
     //{

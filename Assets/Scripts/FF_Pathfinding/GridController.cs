@@ -61,7 +61,7 @@ public class GridController : MonoBehaviour
             return; // Skip unnecessary updates
         }
 
-        Debug.Log($"New Destination (1 Grid Higher): {destinationCell.gridIndex}");
+        //Debug.Log($"New Destination (1 Grid Higher): {destinationCell.gridIndex}");
 
         curFlowField.CreateIntegrationField(destinationCell);
         curFlowField.CreateFlowField();
