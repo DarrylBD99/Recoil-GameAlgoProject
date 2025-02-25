@@ -14,7 +14,7 @@ public class RangerEnemy : EnemyBase
     private Node _targetNode;
     private Node _currentTargetNode;
 
-    public float minDistance = 3.0f; // Minimum distance to maintain from the player
+    public float minDistance = 10.0f; // Minimum distance to maintain from the player
 
     protected new void Start()
     {

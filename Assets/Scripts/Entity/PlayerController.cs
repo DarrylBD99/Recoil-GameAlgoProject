@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private float _rotation;
     private bool _isCooldown = false;
     private float _cooldown = 0f;
+    private bool _isGrappleColliding = false;
 
     public Transform bulletStart;
     public InputActionReference attackAction;
@@ -49,11 +50,34 @@ public class PlayerController : MonoBehaviour
         // Move player
         Vector3 moveDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
+        if (_isGrappleColliding)
+        {
+            moveDir = Vector3.zero;
+        }
+
         _entity.MoveEntityRigidbody(moveDir);
 
         // Look at Mouse
         _mouseDir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         _rotation = (Mathf.Atan2(_mouseDir.y, _mouseDir.x) + Mathf.PI/2) * Mathf.Rad2Deg;
         _sprite.transform.rotation = Quaternion.AngleAxis(_rotation, Vector3.forward);
+    }
+
+    // Detect collision with "Grapple" layer objects
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Grapple"))
+        {
+            _isGrappleColliding = true;
+        }
+    }
+
+    // Reset movement when leaving "Grapple" objects
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Grapple"))
+        {
+            _isGrappleColliding = false;
+        }
     }
 }

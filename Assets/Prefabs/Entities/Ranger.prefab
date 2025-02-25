@@ -158,7 +158,7 @@ MonoBehaviour:
   attackCooldown: 2
   bulletSpeed: 10
   maxHealth: 4
-  range: 1.5
+  range: 10
   xp: 3
   damageAudio: {fileID: 8300000, guid: f69dbac10b4e0854085bdc14d305a018, type: 3}
   stepAudio: {fileID: 8300000, guid: 25355e9c304906d4786211ace9bf606f, type: 3}
