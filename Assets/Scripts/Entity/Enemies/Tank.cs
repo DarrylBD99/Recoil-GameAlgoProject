@@ -22,4 +22,8 @@ public class Tank : EnemyBase
         float rotation = (Mathf.Atan2(moveDir.y, moveDir.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
         sprite.transform.rotation = Quaternion.AngleAxis(rotation, Vector3.forward);
     }
+
+    public override bool CanSpawnInLocation(Vector3 location) {
+        return true;
+    }
 }

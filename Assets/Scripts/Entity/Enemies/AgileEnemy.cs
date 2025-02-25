@@ -17,7 +17,7 @@ public class AgileEnemy : EnemyBase
     // A* Pathfinding
     private LinkedList<Node> _path;
     private Node _targetNode;
-    private Node _currentTargetNode;
+    public Node _currentTargetNode;
 
     // States for Agile Enemy
     protected enum State {
@@ -30,19 +30,12 @@ public class AgileEnemy : EnemyBase
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected new void Start() {
         base.Start();
-
         _currentState = State.Follow;
         _damagedTarget = false;
         _cooldownBool = false;
         _cooldown = 0f;
 
         dagger.SetActive(false);
-    }
-
-    // Hotfix to ensure currentTargetNode's occupiedEntity is set to null before being destroyed
-    protected new void OnDeath() {
-        _currentTargetNode.occupiedEntity = null;
-        base.OnDeath();
     }
 
     // Update is called once per frame
@@ -119,15 +112,8 @@ public class AgileEnemy : EnemyBase
             Node nextNode = _path.Last();
 
             if (Vector3.Distance(nextNode.transform.position, transform.position) <= 0.1) {
-                //_currentTargetNode.occupiedEntity = null;
                 _currentTargetNode = nextNode;
-                //_currentTargetNode.occupiedEntity = entity;
                 _path.RemoveLast();
-            }
-
-            if (!(_currentTargetNode.occupiedEntity.IsUnityNull() || _currentTargetNode.occupiedEntity == entity)) {
-                _path = null;
-                return;
             }
 
             moveDir = nextNode.transform.position - transform.position;
@@ -144,15 +130,22 @@ public class AgileEnemy : EnemyBase
         
         Node targetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, Target.transform.position);
 
-        if (_currentTargetNode.IsUnityNull())
-            _currentTargetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, transform.position);
-
         if (_targetNode != targetNode || _path == null || _path.Count < 0) {
             _targetNode = targetNode;
 
-            if (!_currentTargetNode.IsUnityNull() && !_targetNode.IsUnityNull() && _currentTargetNode != _targetNode)
+            if (!_currentTargetNode.IsUnityNull() && !_targetNode.IsUnityNull() && _currentTargetNode != _targetNode){
                 _path = AStar.GeneratePath(NodeGraph.instance, _currentTargetNode, _targetNode, aStarHeuristic);
+                Debug.Log(_path);
+            }
         }
+    }
+
+    public override bool CanSpawnInLocation(Vector3 location) {
+        if (NodeGraph.instance.IsUnityNull()) return false;
+
+        if (NodeGraph.PositionToNodePos(NodeGraph.instance, location).IsUnityNull()) return false;
+
+        return true;
     }
 
     // Draws A* Path

@@ -48,9 +48,6 @@ public class Dijkstra : MonoBehaviour
 
             foreach (Node neighbor in currentNode.connections.Keys)
             {
-                // Ignore visited neighbors or occupied nodes
-                if (!neighbor.occupiedEntity.IsUnityNull()) continue;
-
                 ulong gNew = dijkstraNodeDictionary[currentNode].g + currentNode.connections[neighbor];
                 if (dijkstraNodeDictionary[neighbor].g > gNew)
                 {

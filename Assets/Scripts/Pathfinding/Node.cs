@@ -4,7 +4,6 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     public int x, y;
-    public Entity occupiedEntity;
 
     public Dictionary<Node, ulong> connections = new();
 

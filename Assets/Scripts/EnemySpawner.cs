@@ -47,7 +47,14 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        GameObject newEnemy = Instantiate(enemyPrefab, SelectSpawnPoint(collider.radius), Quaternion.identity);
+        EnemyBase enemyBase = enemyPrefab.GetComponent<EnemyBase>();
+
+        if (enemyBase == null) {
+            Debug.LogError("Invalid Prefab for enemy: Missing EnemyBase!");
+            return;
+        }
+        
+        GameObject newEnemy = Instantiate(enemyPrefab, SelectSpawnPoint(collider.radius, enemyBase), Quaternion.identity);
 
         if (newEnemy.IsUnityNull()) {
             Debug.LogError("Failed to instantiate enemy!");
@@ -63,8 +70,9 @@ public class EnemySpawner : MonoBehaviour
         spawnTime /= Mathf.Pow(2, spawnFrequency);
     }
 
-    public Vector3 SelectSpawnPoint(float halfSize)
+    public Vector3 SelectSpawnPoint(float halfSize, EnemyBase enemyBase)
     {
+
         Vector3 spawnPoint = Vector3.zero;
         bool spawnVerticalEdge = Random.Range(0f, 1f) > 0.5;
 
@@ -88,8 +96,8 @@ public class EnemySpawner : MonoBehaviour
         if (!groundTilemap.IsUnityNull()) {
             BoundsInt bounds = groundTilemap.cellBounds;
             
-            if (ValidPosition(spawnPoint, bounds, halfSize))
-                return SelectSpawnPoint(halfSize);
+            if (!(ValidPosition(spawnPoint, bounds, halfSize) && enemyBase.CanSpawnInLocation(spawnPoint)))
+                return SelectSpawnPoint(halfSize, enemyBase);
         }
 
         return spawnPoint;

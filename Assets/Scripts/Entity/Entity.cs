@@ -79,6 +79,5 @@ public class Entity : MonoBehaviour
         bullet.GetComponent<Bullet>().source = this;
         bullet.transform.Rotate(0f, 0f, rotation);
         Destroy(bullet, 5f);
-
     }
 }

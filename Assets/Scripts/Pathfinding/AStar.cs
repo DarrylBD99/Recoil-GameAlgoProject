@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AStar : MonoBehaviour
@@ -47,9 +46,6 @@ public class AStar : MonoBehaviour
             }
 
             foreach (Node neighbor in currentNode.connections.Keys) {
-                // ignore visited neighbors
-                if (!neighbor.occupiedEntity.IsUnityNull()) continue;
-
                 ulong gNew = astarNodeDictionary[currentNode].g + currentNode.connections[neighbor];
                 if (astarNodeDictionary[neighbor].g > gNew) {
                     astarNodeDictionary[neighbor].g = gNew;

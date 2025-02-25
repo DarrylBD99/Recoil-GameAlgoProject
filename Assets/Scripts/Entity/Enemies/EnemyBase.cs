@@ -51,4 +51,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     // Get Path
     protected abstract void UpdatePathfinding();
+
+    // Check if enemy can spawn in world location
+    public abstract bool CanSpawnInLocation(Vector3 location);
 }
