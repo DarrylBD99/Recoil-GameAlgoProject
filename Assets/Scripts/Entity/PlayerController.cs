@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
                 _isCooldown = false;
                 _cooldown = 0f;
             }
-        } else if (Input.GetMouseButtonDown(1)) {  // Spawn bullet when right click
+        } else if (Input.GetMouseButtonDown(0)) {  // Spawn bullet when left click
             _entity.SpawnBullet(_mouseDir, bulletStart.position, _rotation);
             _isCooldown = true;
         }
