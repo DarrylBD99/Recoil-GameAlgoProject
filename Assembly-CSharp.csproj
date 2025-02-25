@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Pathfinding\NodeGraph_Editor.cs" />
     <Compile Include="Assets\UpgradeUI.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\AStar.cs" />
+    <Compile Include="Assets\DeathScreen.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\NodeGraph.cs" />
     <Compile Include="Assets\Scripts\Entity\Enemies\EnemyBase.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
