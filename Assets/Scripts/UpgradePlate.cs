@@ -26,6 +26,7 @@ public class UpgradePlate : MonoBehaviour
 
     // Set up Upgrade Plate details
     public void SetStatType(StatType statType, float value) {
+        _enabled = false;
         this.value = value;
         upgradeStat = statType;
         string statTypeString = "";
@@ -70,15 +71,7 @@ public class UpgradePlate : MonoBehaviour
                 statTypeString = "Max Health";
                 break;
         }
-
-        StartCoroutine(EnablePlate());
         description.text = string.Format(formatBase, statTypeString, value);
-    }
-
-    IEnumerator EnablePlate() {
-        _enabled = false;
-        yield return new WaitForSecondsRealtime(0.6f);
-        _enabled = true;
     }
 
     // Upgrade plate is clicked

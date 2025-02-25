@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeUI : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class UpgradeUI : MonoBehaviour
 
     private float _amountStack = 1;
     private float _levelModulus = 4;
+    private float _timer = 0.6f;
 
     public enum StatType
     {
@@ -51,6 +54,13 @@ public class UpgradeUI : MonoBehaviour
 
             upgradePlate.SetStatType(statType, 1);
         }
+        StartCoroutine(EnableUpgrade());
+    }
+
+    IEnumerator EnableUpgrade() {
+        yield return new WaitForSecondsRealtime(_timer);
+        foreach (UpgradePlate upgradePlate in _upgradePlates)
+            upgradePlate.enabled = true;
     }
 
     void UpgradeSelected(StatType statType, float amount) {
