@@ -113,7 +113,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     void IncreaseFrequency() {
-        spawnFrequency += 0.5f;
+        spawnFrequency += 0.25f;
     }
 
     GameObject GetEnemyType() {

@@ -16,7 +16,7 @@ public class HUD : MonoBehaviour
 
     private static int _xp;
     private static int _maxXp;
-    private static int _maxXpMultiplier = 2;
+    private static float _maxXpMultiplier = 1.5f;
 
     private bool _playerInstanceInitialised = false;
     
@@ -54,7 +54,7 @@ public class HUD : MonoBehaviour
         _xp += amount;
         if (_xp >= _maxXp) {
             _xp -= _maxXp;
-            _maxXp *= _maxXpMultiplier;
+            _maxXp = (int)(_maxXp * _maxXpMultiplier);
             Level++;
             OnLevelUp?.Invoke();
             Debug.Log("Max XP: " + _maxXp);
