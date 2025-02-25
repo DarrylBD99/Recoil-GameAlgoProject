@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UpgradeUI : MonoBehaviour
 {
@@ -13,7 +11,6 @@ public class UpgradeUI : MonoBehaviour
 
     private float _amountStack = 1;
     private float _levelModulus = 4;
-    private float _timer = 0.6f;
 
     public enum StatType
     {
