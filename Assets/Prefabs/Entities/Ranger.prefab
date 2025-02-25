@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 3730373559018972413}
   - component: {fileID: 4122355666255374712}
   - component: {fileID: 2765368335799880712}
+  - component: {fileID: 3024770488951344690}
   m_Layer: 7
   m_Name: Ranger
   m_TagString: Untagged
@@ -152,10 +153,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 8296704058011388400, guid: 0f72ba2a0f943044bb6e093774e14857, type: 3}
   attack: 0.5
-  speed: 6.5
+  speed: 5
   attackSpeed: 0.4
-  attackCooldown: 1
-  bulletSpeed: 0
+  attackCooldown: 2
+  bulletSpeed: 10
   maxHealth: 4
   range: 1.5
   xp: 3
@@ -321,6 +322,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3024770488951344690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4969402616257153964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7ad9d73f6b200479c6c8ce54388869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 1234733197903045208}
+  minDistance: 10
 --- !u!1 &8329254912691436402
 GameObject:
   m_ObjectHideFlags: 0
