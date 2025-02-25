@@ -68,7 +68,7 @@ public class UpgradePlate : MonoBehaviour
                 statTypeString = "Max Health";
                 break;
         }
-        description.text = string.Format(formatBase, statTypeString, value);
+        description.text = string.Format(formatBase, statTypeString, value.ToString());
     }
 
     // Upgrade plate is clicked

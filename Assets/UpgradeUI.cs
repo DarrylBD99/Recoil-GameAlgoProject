@@ -54,7 +54,6 @@ public class UpgradeUI : MonoBehaviour
 
             upgradePlate.SetStatType(statType, 1);
         }
-        StartCoroutine(EnableUpgrade());
     }
 
     void UpgradeSelected(StatType statType, float amount) {
