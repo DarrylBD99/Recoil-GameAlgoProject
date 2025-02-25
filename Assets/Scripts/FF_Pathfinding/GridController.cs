@@ -20,12 +20,9 @@ public class GridController : MonoBehaviour
 
     private void Start()
     {
-        if (Instance.IsUnityNull()) {
-            Player = PlayerController.PlayerInstance.transform;
-            InitializeFlowField();
-            Instance = this;
-            DontDestroyOnLoad(Instance);
-        }
+        Player = PlayerController.PlayerInstance.transform;
+        InitializeFlowField();
+        Instance = this;
     }
 
     private void Update()
