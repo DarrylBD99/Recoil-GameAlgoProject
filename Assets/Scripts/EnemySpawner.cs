@@ -96,18 +96,18 @@ public class EnemySpawner : MonoBehaviour
         if (!groundTilemap.IsUnityNull()) {
             BoundsInt bounds = groundTilemap.cellBounds;
             
-            if (!(ValidPosition(spawnPoint, bounds, halfSize) && enemyBase.CanSpawnInLocation(spawnPoint)))
+            if (!ValidPosition(spawnPoint, bounds, halfSize))
                 return SelectSpawnPoint(halfSize, enemyBase);
         }
-
-        return spawnPoint;
+        if (enemyBase.CanSpawnInLocation(spawnPoint))
+            return spawnPoint;
     }
 
     private bool ValidPosition(Vector3 position, BoundsInt bounds, float halfSize) {
         if (position.x < bounds.x || position.x > bounds.xMax || position.y < bounds.y || position.y > bounds.yMax)
             return false;
 
-        return !Physics2D.OverlapBox(position, new Vector2(halfSize, halfSize) / 2, 0f, Entity.obstacleLayerMask);
+        return Physics2D.OverlapBox(position, new Vector2(halfSize, halfSize) / 2, 0f, Entity.obstacleLayerMask).IsUnityNull();
     }
 
     void IncreaseFrequency() {
