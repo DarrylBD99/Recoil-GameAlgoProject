@@ -52,7 +52,7 @@ public class GridController : MonoBehaviour
         Vector3 worldPlayerPos = Player.position;
 
         // Offset position by one grid cell upwards (assuming Y is up in 2D)
-        worldPlayerPos.y += 1;
+        //worldPlayerPos.y += 1;
 
         // Convert world position to a valid grid cell
         Cell destinationCell = curFlowField.GetCellFromWorldPos(worldPlayerPos);
