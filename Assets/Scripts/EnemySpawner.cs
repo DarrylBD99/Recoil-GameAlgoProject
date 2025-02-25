@@ -15,8 +15,7 @@ public class EnemySpawner : MonoBehaviour
     private Tilemap groundTilemap;
 
     private float spawnTime;
-    private int spawnFrequency = 0;
-    private int levelModulus = 3;
+    private float spawnFrequency = 0;
     public Transform minSpawnPoint, maxSpawnPoint;
 
     void Start() {
@@ -114,17 +113,23 @@ public class EnemySpawner : MonoBehaviour
     }
 
     void IncreaseFrequency() {
-        if (HUD.Level % levelModulus == 0)
-            spawnFrequency++;
+        spawnFrequency += 0.5f;
     }
 
     GameObject GetEnemyType() {
-        if (spawnFrequency > 2 && Random.Range(1, rangerChance) == 1)
-            return rangerPrefab;
-        
-        if (spawnFrequency > 5 && Random.Range(1, tankChance) == 1)
-            return tankPrefab;
 
+
+        if (HUD.Level >= 3 && Random.Range(1, rangerChance) == 1){
+            Debug.Log("Ranger Type Spawned");
+            return rangerPrefab;
+        }
+        
+        if (HUD.Level >= 6 && Random.Range(1, tankChance) == 1){
+            Debug.Log("Tank Type Spawned");
+            return tankPrefab;
+        }
+
+        Debug.Log("Agile Type Spawned");
         return agilePrefab;
     }
 }
