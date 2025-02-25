@@ -41,6 +41,8 @@ public class AgileEnemy : EnemyBase
 
     // Update is called once per frame
     protected new void Update() {
+        if (Target.IsDestroyed()) return;
+
         if (_currentState == State.Follow) {
             if (Vector3.Distance(transform.position, Target.transform.position) <= entity.range && !_cooldownBool) {
                 _currentState = State.Attack;
@@ -60,6 +62,7 @@ public class AgileEnemy : EnemyBase
 
     // Update is called once per fixed frame
     protected new void FixedUpdate() {
+        if (Target.IsDestroyed()) return;
         if (_currentState == State.Follow)
             base.FixedUpdate();
     }
@@ -101,6 +104,7 @@ public class AgileEnemy : EnemyBase
 
     // Update Rotation of enemy to face target
     protected override void UpdateRotation() {
+        if (Target.IsDestroyed()) return;
         // Look at Target
         Vector2 targetDir = Target.transform.position - transform.position;
         float rotation = (Mathf.Atan2(targetDir.y, targetDir.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
@@ -126,6 +130,8 @@ public class AgileEnemy : EnemyBase
 
     // Get A* Path
     protected override void UpdatePathfinding() {
+        if (Target.IsDestroyed()) return;
+
         if (NodeGraph.instance.IsUnityNull())
             return;
         

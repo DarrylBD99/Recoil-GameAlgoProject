@@ -21,8 +21,11 @@ public class NodeGraph: MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
-        GenerateNodes();
-        instance = this;
+        if (instance.IsUnityNull()) {
+            GenerateNodes();
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
     }
 
     public Node PositionToNodePos(Vector2 position) {

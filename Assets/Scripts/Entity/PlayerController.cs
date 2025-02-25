@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     // Spawn bullet when attack action is pressed
     void SpawnBullet(InputAction.CallbackContext context) {
+        if (PlayerInstance.IsUnityNull()) return;
+
         if (!_isCooldown){
             _entity.SpawnBullet(_mouseDir, bulletStart.position, _rotation);
             _isCooldown = true;
@@ -34,8 +37,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (_isCooldown) {
             _cooldown += Time.deltaTime;
             if (_cooldown >= _entity.attackCooldown){

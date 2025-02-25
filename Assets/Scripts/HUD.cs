@@ -34,19 +34,20 @@ public class HUD : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        if (!_playerDead && PlayerController.PlayerInstance.IsDestroyed()) {
-            ShowDeathScreen();
-            _playerDead = true;
-        }
+        if (!_playerDead) {
+            if (PlayerController.PlayerInstance.IsDestroyed()) {
+                ShowDeathScreen();
+                return;
+            }
 
-        hpBar.maxValue = PlayerController.PlayerInstance.maxHealth;
-        hpBar.value = PlayerController.PlayerInstance.health;
+            hpBar.maxValue = PlayerController.PlayerInstance.maxHealth;
+            hpBar.value = PlayerController.PlayerInstance.health;
 
-        xpBar.maxValue = _maxXp;
-        xpBar.value = _xp;
-
-        if (!PlayerController.PlayerInstance.IsDestroyed())
+            xpBar.maxValue = _maxXp;
+            xpBar.value = _xp;
+            
             surviveSeconds += Time.deltaTime;
+        }
     }
 
     public static void AddXP(int amount) {

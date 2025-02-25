@@ -9,6 +9,7 @@ public class RangerEnemy : EnemyBase
 
     private bool _cooldownBool;
     private float _cooldown;
+    private float _rotation;
 
     private LinkedList<Node> _path;
     private Node _targetNode;
@@ -23,14 +24,12 @@ public class RangerEnemy : EnemyBase
         _cooldown = 0f;
     }
 
-    protected new void Update()
-    {
+    protected new void Update() {
+        if (Target.IsDestroyed()) return;
         float distanceToPlayer = Vector3.Distance(transform.position, Target.transform.position);
 
         if (distanceToPlayer <= entity.range && !_cooldownBool)
-        {
             Attack();
-        }
 
         base.Update();
 
@@ -45,17 +44,11 @@ public class RangerEnemy : EnemyBase
         }
     }
 
-    protected new void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
-
-    float rotation;
-    protected override void UpdateRotation()
-    {
+    protected override void UpdateRotation() {
+        if (Target.IsDestroyed()) return;
         Vector2 targetDir = Target.transform.position - transform.position;
-        rotation = (Mathf.Atan2(targetDir.y, targetDir.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
-        sprite.transform.rotation = Quaternion.AngleAxis(rotation, Vector3.forward);
+        _rotation = (Mathf.Atan2(targetDir.y, targetDir.x) + Mathf.PI / 2) * Mathf.Rad2Deg;
+        sprite.transform.rotation = Quaternion.AngleAxis(_rotation, Vector3.forward);
     }
 
     protected override void UpdateMovement()
@@ -93,8 +86,8 @@ public class RangerEnemy : EnemyBase
         return !NodeGraph.PositionToNodePos(NodeGraph.instance, location).IsUnityNull();
     }
 
-    protected override void UpdatePathfinding()
-    {
+    protected override void UpdatePathfinding() {
+        if (Target.IsDestroyed()) return;
         if (NodeGraph.instance != null)
         {
             Node targetNode = NodeGraph.PositionToNodePos(NodeGraph.instance, Target.transform.position);
@@ -112,8 +105,7 @@ public class RangerEnemy : EnemyBase
         }
     }
 
-    private void Attack()
-    {
+    private void Attack() {
         _cooldownBool = true;
 
         if (firePoint != null)
@@ -122,12 +114,11 @@ public class RangerEnemy : EnemyBase
             Vector2 directionToPlayer = (Target.transform.position - firePoint.position).normalized;
 
             // Call SpawnBullet() from Entity.cs (same method used in PlayerController)
-            entity.SpawnBullet(directionToPlayer, firePoint.position, rotation);
+            entity.SpawnBullet(directionToPlayer, firePoint.position, _rotation);
         }
     }
 
-    void OnDrawGizmos()
-    {
+    void OnDrawGizmos() {
         if (_path != null)
         {
             Gizmos.color = Color.red;

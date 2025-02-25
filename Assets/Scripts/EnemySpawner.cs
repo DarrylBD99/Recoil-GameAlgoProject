@@ -24,6 +24,8 @@ public class EnemySpawner : MonoBehaviour
     }
 
     void Update() {
+        if (PlayerController.PlayerInstance.IsDestroyed()) return;
+
         spawnTime -= Time.deltaTime;
         if (spawnTime <= 0) {
             UnitController.Instance.IsUnityNull();
@@ -59,9 +61,6 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogError("Failed to instantiate enemy!");
             return;
         }
-
-        // Ensure the object doesn't get destroyed before using it
-        DontDestroyOnLoad(newEnemy);
     }
 
     private void ResetSpawnTimer() {

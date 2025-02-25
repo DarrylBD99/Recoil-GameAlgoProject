@@ -2,6 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class GridController : MonoBehaviour
 {
@@ -19,9 +20,12 @@ public class GridController : MonoBehaviour
 
     private void Start()
     {
-        Player = PlayerController.PlayerInstance.transform;
-        InitializeFlowField();
-        Instance = this;
+        if (Instance.IsUnityNull()) {
+            Player = PlayerController.PlayerInstance.transform;
+            InitializeFlowField();
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+        }
     }
 
     private void Update()
