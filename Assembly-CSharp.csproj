@@ -74,8 +74,8 @@
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\UpgradePlate.cs" />
     <Compile Include="Assets\Scripts\Entity\Enemies\AgileEnemy.cs" />
-    <Compile Include="Assets\Scripts\Entity\EntityCanvas.cs" />
     <Compile Include="Assets\Scripts\Entity\Enemies\Tank.cs" />
+    <Compile Include="Assets\Scripts\Entity\EntityCanvas.cs" />
     <Compile Include="Assets\Scripts\Entity\PlayerController.cs" />
     <Compile Include="Assets\Scripts\FF_Pathfinding\GridDirection.cs" />
     <Compile Include="Assets\Scripts\FF_Pathfinding\GridDebug.cs" />
@@ -1240,6 +1240,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Config.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Splines.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Splines.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.2D.Aseprite.Common">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Aseprite.Common.dll</HintPath>
       <Private>False</Private>
@@ -1250,10 +1254,6 @@
     </Reference>
     <Reference Include="Unity.2D.Animation.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Splines.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Splines.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Collections.Editor">
