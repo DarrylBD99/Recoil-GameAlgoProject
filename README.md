@@ -1,6 +1,7 @@
 # Recoil
-<img src="https://i.imgur.com/9VraYQo.png" />
 Built using Unity 6000.0.30f1
+
+<img src="https://i.imgur.com/9VraYQo.png" />
 
 An endless roguelike top-down shooter, where each enemy type has a different pathfinding and attack pattern.
 The goal is to survive as long as possible.
